@@ -35,6 +35,10 @@
   </script>
   
   <style>
+  nav {
+    position: relative;
+    top: 0;
+  }
   nav ul {
     display: flex;
     list-style: none;

@@ -1,12 +1,15 @@
 <template>
-    <div>
-        <i>Footer</i>
-    </div>
+    <footer>
+        <h1>Footer</h1>
+    </footer>
 </template>
 
 <style>
-    div {
+    footer {
         position: fixed;
         bottom: 0;
+    }
+    h1 {
+        text-align: center;
     }
 </style>

@@ -3,6 +3,7 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 import Home from './views/Home.vue'
 import Pickup from './views/Pickup.vue'
 import Dropoff from './views/Dropoff.vue'
@@ -36,5 +37,6 @@ const router = createRouter({
 
 const app = createApp(App)
 app.component('Navbar', Navbar)
+app.component('Footer', Footer)
 app.use(router)
 app.mount('#app')

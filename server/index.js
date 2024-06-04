@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const userRoute = require("./routes/user.routes");
 const userProfileRoute = require("./routes/userProfile.routes");
+const pickUpRoute = require("./routes/pickUp.routes");
+const senderRoute = require("./routes/sender.routes");
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.set("view engine", "ejs");
 
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/user-profiles", userProfileRoute);
+app.use("/api/v1/pickups", pickUpRoute);
+app.use("/api/v1/senders", senderRoute);
 
 
 app.get("/", (req, res) => {

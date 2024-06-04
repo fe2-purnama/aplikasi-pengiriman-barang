@@ -2,6 +2,13 @@
     <nav>
       <ul>
         <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/pickup">Pick Up</router-link></li>
+        <li><router-link to="/dropoff">Drop Off</router-link></li>
+        <li><router-link to="/tracetrack">Trace & Track</router-link></li>
+        <li><router-link to="/shippingrates">Shipping Rates</router-link></li>
+        <li><router-link to="/finddroppoint">Find Drop Point</router-link></li>
+        <li><router-link to="/services">Services</router-link></li>
+        <li><router-link to="/aboutus">About Us</router-link></li>
         <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
         <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
         <li v-if="isLoggedIn"><router-link to="/dashboard">Dashboard</router-link></li>

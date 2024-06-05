@@ -1,9 +1,8 @@
 <template>
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to your dashboard!</p>
-    </div>
-  </template>
+  <h1>Dashboard</h1>
+</template>
+
+  
   
   <script>
   export default {

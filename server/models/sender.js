@@ -8,9 +8,9 @@ const senderSchema = new Schema({
   originCity: { type: String },
   postCode: { type: String },
   address: { type: String },
-  pickUpId: { 
+  shipmentId: { 
     type: Schema.Types.ObjectId, 
-    ref: 'Pickup' 
+    ref: 'Shipment' 
   },
   dropOffId: {
     type: Schema.Types.ObjectId, 

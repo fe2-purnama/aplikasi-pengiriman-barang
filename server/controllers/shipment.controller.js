@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
-const PickUp = require("../models/PickUp");
+const Shipment = require("../models/Shipment");
 const User = require("../models/User");
 const Sender = require("../models/Sender");
 
-const createPickUp = async (req, res, next) => {
+const createShipment = async (req, res, next) => {
     try {
-        const { userId, noTrack } = req.body;
+        const { userId, noTrack, type, status, courierId} = req.body;
 
         // Validate required fields
-        if (!userId || !noTrack) {
+        if (!userId || !type || !status) {
             return res.status(400).json({
                 status: false,
                 message: "All fields are required.",
@@ -26,16 +26,19 @@ const createPickUp = async (req, res, next) => {
             });
         }
 
-        // Create new pick-up record
-        const newPickUp = await PickUp.create({
+        // Create new shipment record
+        const newShipment = await Shipment.create({
             userId,
             noTrack,
+            type,
+            status,
+            courierId,
         });
 
         res.status(201).json({
             status: true,
-            message: "Pick-up created successfully",
-            data: newPickUp,
+            message: "Shipment created successfully",
+            data: newShipment,
         });
 
     } catch (err) {
@@ -43,20 +46,20 @@ const createPickUp = async (req, res, next) => {
     }
 };
 
-const getPickUpById = async (req, res, next) => {
+const getShipmentById = async (req, res, next) => {
     try {
-        const pickupId = req.params.id;
+        const shipmentId = req.params.id;
 
-        // Find the pickup by its ID
-        const pickup = await PickUp.aggregate([
+        // Find the Shipment by its ID
+        const shipment = await Shipment.aggregate([
             {
-                $match: { _id: new mongoose.Types.ObjectId(pickupId) }
+                $match: { _id: new mongoose.Types.ObjectId(shipmentId) }
             },
             {
                 $lookup: {
                     from: "senders",
                     localField: "_id",
-                    foreignField: "pickUpId",
+                    foreignField: "shipmentId",
                     as: "sender"
                 }
             },
@@ -65,19 +68,19 @@ const getPickUpById = async (req, res, next) => {
             }
         ]);
 
-        if (pickup.length === 0) {
+        if (shipment.length === 0) {
             return res.status(404).json({
                 status: false,
-                message: "Pickup not found.",
+                message: "Shipment not found.",
                 data: null,
             });
         }
 
         res.status(200).json({
             status: true,
-            message: "Pickup found successfully.",
+            message: "Shipment found successfully.",
             data: {
-                pickup: pickup[0],
+                shipment: shipment[0],
             },
         });
         
@@ -86,8 +89,7 @@ const getPickUpById = async (req, res, next) => {
     }
 };
 
-
 module.exports = {
-    createPickUp,
-    getPickUpById,
+    createShipment,
+    getShipmentById,
 };

@@ -1,13 +1,13 @@
 const Sender = require('../models/Sender');
 const User = require('../models/User');
-const PickUp = require('../models/PickUp'); // Assuming you have a PickUp model
+const Shipment = require('../models/Shipment'); 
 
 const createSender = async (req, res, next) => {
     try {
-        const { name, phoneNumber, originCity, postCode, address, pickUpId, dropOffId } = req.body;
+        const { name, phoneNumber, originCity, postCode, address, shipmentId, dropOffId } = req.body;
 
         // Validate required fields
-        if (!pickUpId || !name || !phoneNumber) {
+        if (!shipmentId || !name || !phoneNumber) {
             return res.status(400).json({
                 status: false,
                 message: "User ID, name, and phone number are required.",
@@ -16,7 +16,7 @@ const createSender = async (req, res, next) => {
         }
 
         // Check if user exists
-        const existingUser = await PickUp.findById(pickUpId);
+        const existingUser = await Shipment.findById(shipmentId);
         if (!existingUser) {
             return res.status(404).json({
                 status: false,
@@ -32,7 +32,7 @@ const createSender = async (req, res, next) => {
             originCity,
             postCode,
             address,
-            pickUpId,
+            shipmentId,
             dropOffId,
         });
 
@@ -47,6 +47,48 @@ const createSender = async (req, res, next) => {
     }
 };
 
+const updateSender = async (req, res, next) => {
+    try {
+        const senderId = req.params.senderId; // Mengambil ID pengirim dari parameter rute
+        const updateData = req.body; // Data baru untuk diperbarui
+
+        // Periksa apakah pengirim ada
+        const existingSender = await Sender.findById(senderId);
+        if (!existingSender) {
+            return res.status(404).json({
+                status: false,
+                message: "Sender not found.",
+                data: null,
+            });
+        }
+
+        // Periksa apakah ada perubahan yang diminta pada pengiriman terkait
+        if (updateData.shipmentId) {
+            // Periksa apakah pengiriman yang diminta ada
+            const existingShipment = await Shipment.findById(updateData.shipmentId);
+            if (!existingShipment) {
+                return res.status(404).json({
+                    status: false,
+                    message: "Shipment not found.",
+                    data: null,
+                });
+            }
+        }
+
+        // Lakukan pembaruan pada pengirim
+        const updatedSender = await Sender.findByIdAndUpdate(senderId, updateData, { new: true });
+
+        res.status(200).json({
+            status: true,
+            message: "Sender updated successfully",
+            data: updatedSender,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     createSender,
+    updateSender,
 };

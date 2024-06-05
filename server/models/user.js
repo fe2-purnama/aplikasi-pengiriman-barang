@@ -19,7 +19,7 @@ const userSchema = new Schema({
   googleId: String,
   userProfile: { type: Schema.Types.ObjectId, ref: 'UserProfile' } // reference to UserProfile
 }, {
-  pickUp: { type: Schema.Types.ObjectId, ref: 'PickUp' } // reference to UserProfile
+  shipment: { type: Schema.Types.ObjectId, ref: 'Shipment' } // reference to UserProfile
 }, {
   timestamps: true
 });

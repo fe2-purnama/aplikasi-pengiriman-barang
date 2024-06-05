@@ -458,10 +458,10 @@ const verifyOtp = async (req, res, next) => {
         { $unwind: { path: "$userProfile", preserveNullAndEmptyArrays: true } },
         { 
           $lookup: {
-              from: "pickups", // Ganti dengan nama koleksi pickups yang sesuai
+              from: "shipments", // Ganti dengan nama koleksi yang sesuai
               localField: "_id",
               foreignField: "userId",
-              as: "pickups"
+              as: "shipments"
           }
       },
       ]);

@@ -65,6 +65,28 @@ const getShipmentById = async (req, res, next) => {
             },
             {
                 $unwind: { path: "$sender", preserveNullAndEmptyArrays: true }
+            },
+            {
+                $lookup: {
+                    from: "couriers",
+                    localField: "_id",
+                    foreignField: "shipmentId",
+                    as: "courier"
+                }
+            },
+            {
+                $unwind: { path: "$courier", preserveNullAndEmptyArrays: true }
+            },
+            {
+                $lookup: {
+                    from: "recipients",
+                    localField: "_id",
+                    foreignField: "shipmentId",
+                    as: "recipient"
+                }
+            },
+            {
+                $unwind: { path: "$recipient", preserveNullAndEmptyArrays: true }
             }
         ]);
 

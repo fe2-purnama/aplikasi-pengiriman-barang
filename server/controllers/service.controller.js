@@ -1,28 +1,21 @@
-const Recipient = require("../models/Recipient");
+// Mengganti impor model Sender dengan model Service
+const Service = require("../models/Service");
 const Shipment = require("../models/Shipment");
 
-const createRecipient = async (req, res, next) => {
+const createService = async (req, res, next) => {
   try {
-    const {
-      name,
-      phoneNumber,
-      destinationCity,
-      postCode,
-      address,
-      shipmentId,
-      dropOffId,
-    } = req.body;
+    const { nameServices, price, description, shipmentId } = req.body;
 
-    // Validate required fields
-    if (!shipmentId || !name || !phoneNumber) {
+    // Validasi field yang diperlukan
+    if (!shipmentId || !nameServices || !price) {
       return res.status(400).json({
         status: false,
-        message: "Shipment ID, name, and phone number are required.",
+        message: "Shipment ID, service name, and price are required.",
         data: null,
       });
     }
 
-    // Check if shipment exists
+    // Periksa apakah pengiriman yang diminta ada
     const existingShipment = await Shipment.findById(shipmentId);
     if (!existingShipment) {
       return res.status(404).json({
@@ -32,37 +25,35 @@ const createRecipient = async (req, res, next) => {
       });
     }
 
-    // Create new recipient record
-    const newRecipient = await Recipient.create({
-      name,
-      phoneNumber,
-      destinationCity,
-      postCode,
-      address,
+    // Buat catatan layanan baru
+    const newService = await Service.create({
+      nameServices,
+      price,
+      description,
       shipmentId,
     });
 
     res.status(201).json({
       status: true,
-      message: "Recipient created successfully",
-      data: newRecipient,
+      message: "Service created successfully",
+      data: newService,
     });
   } catch (err) {
     next(err);
   }
 };
 
-const updateRecipient = async (req, res, next) => {
+const updateService = async (req, res, next) => {
   try {
-    const recipientId = req.params.recipientId; // Mengambil ID penerima dari parameter rute
+    const serviceId = req.params.serviceId; // Mengambil ID layanan dari parameter rute
     const updateData = req.body; // Data baru untuk diperbarui
 
-    // Periksa apakah penerima ada
-    const existingRecipient = await Recipient.findById(recipientId);
-    if (!existingRecipient) {
+    // Periksa apakah layanan ada
+    const existingService = await Service.findById(serviceId);
+    if (!existingService) {
       return res.status(404).json({
         status: false,
-        message: "Recipient not found.",
+        message: "Service not found.",
         data: null,
       });
     }
@@ -80,17 +71,17 @@ const updateRecipient = async (req, res, next) => {
       }
     }
 
-    // Lakukan pembaruan pada penerima
-    const updatedRecipient = await Recipient.findByIdAndUpdate(
-      recipientId,
+    // Lakukan pembaruan pada layanan
+    const updatedService = await Service.findByIdAndUpdate(
+      serviceId,
       updateData,
       { new: true }
     );
 
     res.status(200).json({
       status: true,
-      message: "Recipient updated successfully",
-      data: updatedRecipient,
+      message: "Service updated successfully",
+      data: updatedService,
     });
   } catch (err) {
     next(err);
@@ -98,6 +89,6 @@ const updateRecipient = async (req, res, next) => {
 };
 
 module.exports = {
-  createRecipient,
-  updateRecipient,
+  createService,
+  updateService,
 };

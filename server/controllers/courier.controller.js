@@ -25,18 +25,6 @@ const createCourier = async (req, res, next) => {
       });
     }
 
-    // // Check if dropoff exists
-    // if (dropOffId) {
-    //     const existingDropoff = await Dropoff.findById(dropOffId);
-    //     if (!existingDropoff) {
-    //         return res.status(404).json({
-    //             status: false,
-    //             message: "Dropoff location not found.",
-    //             data: null,
-    //         });
-    //     }
-    // }
-
     // Create new courier record
     const newCourier = await Courier.create({
       name,
@@ -84,19 +72,6 @@ const updateCourier = async (req, res, next) => {
       }
     }
 
-    // Periksa apakah ada perubahan yang diminta pada lokasi dropoff terkait
-    if (updateData.dropOffId) {
-      // Periksa apakah lokasi dropoff yang diminta ada
-      const existingDropoff = await Dropoff.findById(updateData.dropOffId);
-      if (!existingDropoff) {
-        return res.status(404).json({
-          status: false,
-          message: "Dropoff location not found.",
-          data: null,
-        });
-      }
-    }
-
     // Lakukan pembaruan pada kurir
     const updatedCourier = await Courier.findByIdAndUpdate(
       courierId,
@@ -114,7 +89,33 @@ const updateCourier = async (req, res, next) => {
   }
 };
 
+const getCourierById = async (req, res, next) => {
+  try {
+    const courierId = req.params.courierId; // Retrieve the courier ID from the route parameters
+
+    // Check if the courier exists
+    const existingCourier = await Courier.findById(courierId);
+    if (!existingCourier) {
+      return res.status(404).json({
+        status: false,
+        message: "Courier not found.",
+        data: null,
+      });
+    }
+
+    res.status(200).json({
+      status: true,
+      message: "Courier retrieved successfully",
+      data: existingCourier,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
 module.exports = {
   createCourier,
   updateCourier,
+  getCourierById,
 };

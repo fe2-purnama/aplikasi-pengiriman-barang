@@ -6,6 +6,7 @@ const Recipient = require("../models/Recipient");
 const Package = require("../models/Package");
 const Service = require("../models/Service");
 const User = require("../models/User");
+const Payment = require("../models/Payment");
 
 const createShipment = async (req, res, next) => {
   try {
@@ -109,6 +110,15 @@ const getShipmentById = async (req, res, next) => {
           as: "services",
         },
       },
+      // Tambahkan lookup payment
+      {
+        $lookup: {
+          from: "payments",
+          localField: "_id",
+          foreignField: "shipmentId",
+          as: "payments",
+        },
+      },
     ]);
 
     if (shipment.length === 0) {
@@ -149,6 +159,9 @@ const deleteShipment = async (req, res, next) => {
 
     // Hapus data service yang terkait
     await Service.deleteMany({ shipmentId: shipmentId });
+
+    // Hapus data service yang terkait
+    await Payment.deleteMany({ shipmentId: shipmentId });
 
     // Hapus pengiriman berdasarkan ID
     const deletedShipment = await Shipment.findByIdAndDelete(shipmentId);

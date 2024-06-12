@@ -75,7 +75,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #FDFFE2 !important ; /* Bootstrap primary color */
+  background-color: #ffa500 !important ; /* Bootstrap primary color */
 }
 
 .nav-link {
@@ -91,7 +91,7 @@ nav {
 }
 
 .nav-link:hover, .dropdown-item:hover {
-  background-color: #83B4FF !important; /* Darker shade of primary */
+  background-color: #da8d00 !important; /* Darker shade of primary */
   color: #1A2130 !important;
 }
 

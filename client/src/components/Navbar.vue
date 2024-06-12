@@ -75,11 +75,11 @@ nav {
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #062a78 !important ; /* Bootstrap primary color */
+  background-color: #FDFFE2 !important ; /* Bootstrap primary color */
 }
 
 .nav-link {
-  color: white !important;
+  color: #1A2130 !important;
 }
 
 .dropdown-menu {
@@ -87,12 +87,12 @@ nav {
 }
 
 .dropdown-item {
-  color: white !important;
+  color: #1A2130 !important;
 }
 
 .nav-link:hover, .dropdown-item:hover {
-  background-color: #0056b3 !important; /* Darker shade of primary */
-  color: white !important;
+  background-color: #83B4FF !important; /* Darker shade of primary */
+  color: #1A2130 !important;
 }
 
 body {

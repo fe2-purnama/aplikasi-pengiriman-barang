@@ -37,7 +37,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="InformationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Information
         </a>
-        <div class="dropdown-menu" aria-labelledby="InformationDropdown">
+        <div class="dropdown-menu" aria-labelledby="SearchDropdown">
           <router-link to="/faq" class="dropdown-item">FAQ</router-link>
           <router-link to="/packaginginformation" class="dropdown-item">Packaging Information</router-link>
           <router-link to="/term" class="dropdown-item">Term</router-link>
@@ -52,60 +52,51 @@
     <ul class="navbar-nav ml-auto">
       <!-- Nav Item - Login -->
       <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+        <router-link to="/login" class="nav-link">Login</router-link>
       </li>
       <!-- Nav Item - Register -->
       <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Register</a>
+        <router-link to="/register" class="nav-link">Register</router-link>
       </li>
     </ul>
 
-    <!-- Modals -->
-    <Login />
-    <Register />
   </nav>
 </template>
 
 <script>
-import Login from '../views/Login.vue';
-import Register from '../views/Register.vue';
-
 export default {
-  components: {
-    Login,
-    Register
-  }
+  // Your script here
 }
 </script>
 
 <style scoped>
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #062a78 !important; /* Bootstrap primary color */
-  }
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #FDFFE2 !important ; /* Bootstrap primary color */
+}
 
-  .nav-link {
-    color: white !important;
-  }
+.nav-link {
+  color: #1A2130 !important;
+}
 
-  .dropdown-menu {
-    width: fit-content !important;
-  }
+.dropdown-menu {
+  width: fit-content !important;
+}
 
-  .dropdown-item {
-    color: white !important;
-  }
+.dropdown-item {
+  color: #1A2130 !important;
+}
 
-  .nav-link:hover, .dropdown-item:hover {
-    background-color: #0056b3 !important; /* Darker shade of primary */
-    color: white !important;
-  }
+.nav-link:hover, .dropdown-item:hover {
+  background-color: #83B4FF !important; /* Darker shade of primary */
+  color: #1A2130 !important;
+}
 
-  body {
-    margin: 0;
-    padding-top: 56px; /* Ensure content below the navbar */
-  }
+body {
+  margin: 0;
+  padding-top: 56px; /* Ensure content below the navbar */
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="header bg-primary d-flex align-items-center justify-content-between w-100 min-vh-100"
+    class="header d-flex align-items-center justify-content-between w-100 min-vh-100"
   >
     <div class="header-title">
       <h1><b>KirimKan.</b></h1>
@@ -8,7 +8,7 @@
     </div>
     <img class="mt-2 w-40 h-40 me-3" src="/public/img1.png" />
   </div>
-  <div class="bg-primary d-flex align-items-center justify-content-between w-100 min-vh-100">
+  <div class="d-flex align-items-center justify-content-between w-100 min-vh-100">
     
   </div>
 </template>

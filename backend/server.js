@@ -1,26 +1,32 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Tambahkan ini untuk mengizinkan permintaan dari frontend
+const cors = require('cors');
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.use(cors()); // Gunakan CORS
+// Middleware
 app.use(bodyParser.json());
+app.use(cors());
 
-app.post('/register', (req, res) => {
-  const { username, email, password } = req.body;
+// Endpoint untuk registrasi pengguna
+app.post('/api/register', (req, res) => {
+  // Ambil data dari body request
+  const { fullName, phoneNumber, city, country, email, password } = req.body;
 
-  // Validasi data
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: 'Silakan lengkapi semua kolom' });
+  // Lakukan validasi data (opsional)
+  if (!fullName || !phoneNumber || !city || !country || !email || !password) {
+    return res.status(400).json({ success: false, message: "Silakan lengkapi semua kolom" });
   }
 
-  // Simulasi penyimpanan data pengguna
-  console.log('Data pengguna:', { username, email, password });
+  // Simpan data pengguna ke database atau lakukan operasi lainnya
+  // Di sini Anda bisa menggunakan MongoDB, PostgreSQL, dll.
 
-  res.status(201).json({ message: 'Registrasi berhasil!' });
+  // Simulasikan respons sukses
+  res.status(200).json({ success: true, message: "Registrasi berhasil!" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server berjalan di port ${PORT}`);
+// Jalankan server
+app.listen(port, () => {
+  console.log(`Server berjalan di http://localhost:${port}`);
 });

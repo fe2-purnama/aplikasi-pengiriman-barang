@@ -7,13 +7,20 @@
       <div class="card-body">
         <h5 class="card-title">Isi Formulir Registrasi</h5>
         <div class="form-group">
-          <label for="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            class="form-control"
-            v-model="username"
-          />
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" class="form-control" v-model="fullName" />
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="text" id="phoneNumber" class="form-control" v-model="phoneNumber" />
+        </div>
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" class="form-control" v-model="city" />
+        </div>
+        <div class="form-group">
+          <label for="country">Country:</label>
+          <input type="text" id="country" class="form-control" v-model="country" />
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
@@ -21,21 +28,11 @@
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            v-model="password"
-          />
+          <input type="password" id="password" class="form-control" v-model="password" />
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Konfirmasi Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            class="form-control"
-            v-model="confirmPassword"
-          />
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" class="form-control" v-model="confirmPassword" />
         </div>
         <button @click="register" class="btn btn-primary">Register</button>
       </div>
@@ -43,11 +40,7 @@
 
     <!-- Pesan Sukses atau Error -->
     <div class="mt-3" v-if="message">
-      <div
-        :class="[
-          { alert: true, 'alert-success': success, 'alert-danger': !success },
-        ]"
-      >
+      <div :class="[{ alert: true, 'alert-success': success, 'alert-danger': !success }]">
         {{ message }}
       </div>
     </div>
@@ -61,7 +54,10 @@ export default {
   name: "Register",
   data() {
     return {
-      username: "",
+      fullName: "",
+      phoneNumber: "",
+      city: "",
+      country: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -73,7 +69,10 @@ export default {
     async register() {
       // Validasi form
       if (
-        this.username === "" ||
+        this.fullName === "" ||
+        this.phoneNumber === "" ||
+        this.city === "" ||
+        this.country === "" ||
         this.email === "" ||
         this.password === "" ||
         this.confirmPassword === ""
@@ -91,8 +90,11 @@ export default {
 
       try {
         // Panggilan API untuk registrasi
-        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/users/register', {
-          username: this.username,
+        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/users/registerNoVerify', {
+          fullName: this.fullName,
+          phoneNumber: this.phoneNumber,
+          city: this.city,
+          country: this.country,
           email: this.email,
           password: this.password,
         });
@@ -101,11 +103,15 @@ export default {
         this.message = response.data.message;
         this.success = true;
 
-        // Bersihkan form setelah registrasi berhasil
-        this.username = "";
+        // Bersihkan form setelah registrasi berhasil (opsional)
+        this.fullName = "";
+        this.phoneNumber = "";
+        this.city = "";
+        this.country = "";
         this.email = "";
         this.password = "";
         this.confirmPassword = "";
+
       } catch (error) {
         // Penanganan kesalahan dari server
         if (error.response && error.response.data) {

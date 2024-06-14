@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "Register",
   data() {
@@ -68,7 +70,7 @@ export default {
     };
   },
   methods: {
-    register() {
+    async register() {
       // Validasi form
       if (
         this.username === "" ||
@@ -87,17 +89,32 @@ export default {
         return;
       }
 
-      // Simulasi proses registrasi
-      // Gantilah dengan panggilan API sesungguhnya
-      // Contoh: axios.post('http://example.com/api/register', { username: this.username, email: this.email, password: this.password })
-      this.message = "Registrasi berhasil!";
-      this.success = true;
+      try {
+        // Panggilan API untuk registrasi
+        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/users/register', {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        });
 
-      // Bersihkan form setelah registrasi berhasil
-      this.username = "";
-      this.email = "";
-      this.password = "";
-      this.confirmPassword = "";
+        // Penanganan respons sukses
+        this.message = response.data.message;
+        this.success = true;
+
+        // Bersihkan form setelah registrasi berhasil
+        this.username = "";
+        this.email = "";
+        this.password = "";
+        this.confirmPassword = "";
+      } catch (error) {
+        // Penanganan kesalahan dari server
+        if (error.response && error.response.data) {
+          this.message = error.response.data.message;
+        } else {
+          this.message = "Terjadi kesalahan saat melakukan registrasi";
+        }
+        this.success = false;
+      }
     },
   },
 };

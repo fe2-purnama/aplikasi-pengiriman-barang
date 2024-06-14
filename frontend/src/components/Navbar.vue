@@ -91,12 +91,15 @@ nav {
 }
 
 .nav-link:hover, .dropdown-item:hover {
-  background-color: #da8d00 !important; /* Darker shade of primary */
+  background-color: #db9200d2 !important; /* Darker shade of primary */
   color: #1A2130 !important;
 }
 
 body {
   margin: 0;
   padding-top: 56px; /* Ensure content below the navbar */
+}
+.dropdown-item {
+  background-color: #ffa500 !important;
 }
 </style>

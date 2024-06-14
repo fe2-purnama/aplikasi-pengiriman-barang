@@ -1,3 +1,4 @@
+<!-- src/views/Register.vue -->
 <template>
   <div class="container">
     <h1 class="mt-1 mb-3">Registrasi</h1>
@@ -7,17 +8,26 @@
       <div class="card-body">
         <h5 class="card-title">Isi Formulir Registrasi</h5>
         <div class="form-group">
-          <label for="username">Username:</label>
+          <label for="fullName">Nama Lengkap:</label>
           <input
             type="text"
-            id="username"
+            id="fullName"
             class="form-control"
-            v-model="username"
+            v-model="fullName"
           />
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
           <input type="email" id="email" class="form-control" v-model="email" />
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Nomor Telepon:</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            class="form-control"
+            v-model="phoneNumber"
+          />
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
@@ -26,15 +36,6 @@
             id="password"
             class="form-control"
             v-model="password"
-          />
-        </div>
-        <div class="form-group">
-          <label for="confirmPassword">Konfirmasi Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            class="form-control"
-            v-model="confirmPassword"
           />
         </div>
         <button @click="register" class="btn btn-primary">Register</button>
@@ -61,10 +62,10 @@ export default {
   name: "Register",
   data() {
     return {
-      username: "",
+      fullName: "",
       email: "",
+      phoneNumber: "",
       password: "",
-      confirmPassword: "",
       message: "",
       success: false,
     };
@@ -73,28 +74,24 @@ export default {
     async register() {
       // Validasi form
       if (
-        this.username === "" ||
+        this.fullName === "" ||
         this.email === "" ||
-        this.password === "" ||
-        this.confirmPassword === ""
+        this.phoneNumber === "" ||
+        this.password === ""
       ) {
         this.message = "Silakan lengkapi semua kolom";
         this.success = false;
         return;
       }
 
-      if (this.password !== this.confirmPassword) {
-        this.message = "Konfirmasi password tidak cocok";
-        this.success = false;
-        return;
-      }
-
       try {
         // Panggilan API untuk registrasi
-        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/users/register', {
-          username: this.username,
+        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/users/registerNoVerify', {
+          fullName: this.fullName,
           email: this.email,
+          phoneNumber: this.phoneNumber,
           password: this.password,
+          role: "User"  // Default role untuk user baru
         });
 
         // Penanganan respons sukses
@@ -102,10 +99,13 @@ export default {
         this.success = true;
 
         // Bersihkan form setelah registrasi berhasil
-        this.username = "";
+        this.fullName = "";
         this.email = "";
+        this.phoneNumber = "";
         this.password = "";
-        this.confirmPassword = "";
+
+        // Redirect ke halaman Users setelah registrasi sukses (opsional)
+        this.$router.push('/users');
       } catch (error) {
         // Penanganan kesalahan dari server
         if (error.response && error.response.data) {

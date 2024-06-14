@@ -1,28 +1,40 @@
 <template>
   <div>
     <div class="homepage-image-container">
-      <img src="/public/homepage.jpeg" alt="Homepage Image" class="homepage-image">
+      <img
+        src="/public/homepage.jpeg"
+        alt="Homepage Image"
+        class="homepage-image"
+      />
     </div>
     <section class="section__container booking__container">
       <form action="/" class="booking__form">
         <div class="input__group">
-          <span><i class="ri-calendar-2-fill"></i></span>
-          <div>
-            <label for="check-in">CHECK-IN</label>
-            <input type="text" placeholder="Check In" />
+          <div class="trace-track-container">
+            <label for="check-in">Trace & Track</label>
+            <div class="row">
+              <div class="col-6">
+                <input type="text" id="check-in" placeholder="Check In" />
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn small-btn">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="input__group">
-          <span><i class="ri-calendar-2-fill"></i></span>
+          <!-- <span><i class="ri-calendar-2-fill"></i></span> -->
           <div>
-            <label for="check-out">CHECK-OUT</label>
+            <label for="check-out">Biaya Kirim</label>
             <input type="text" placeholder="Check Out" />
           </div>
         </div>
         <div class="input__group">
-          <span><i class="ri-user-fill"></i></span>
+          <!-- <span><i class="ri-user-fill"></i></span> -->
           <div>
-            <label for="guest">GUEST</label>
+            <label for="guest">Temukan Drop Point</label>
             <input type="text" placeholder="Guest" />
           </div>
         </div>
@@ -34,7 +46,7 @@
 
     <section class="section__container about__container" id="about">
       <div class="about__image">
-        <img src="/public/aboutus.jpeg" alt="about" />
+        <img src="/public/kurir.jpeg" alt="about" />
       </div>
       <div class="about__content">
         <p class="section__subheader">ABOUT US</p>
@@ -53,7 +65,9 @@
 
     <section class="section__container room__container">
       <p class="section__subheader">OUR LIVING ROOM</p>
-      <h2 class="section__header">The Most Memorable Rest Time Starts Here.</h2>
+      <h2 class="section__header text-align-center">
+        The Most Memorable Rest Time Starts Here.
+      </h2>
       <div class="room__grid">
         <div class="room__card">
           <div class="room__card__image">
@@ -229,7 +243,7 @@
 }
 
 .section__header {
-  max-width: 600px;
+  /* max-width: 600px; */
   margin-bottom: 1rem;
   font-size: 2.5rem;
   font-weight: 600;
@@ -417,6 +431,11 @@ nav {
 
 .input__group input::placeholder {
   color: var(--text-light);
+}
+
+.small-btn {
+  width: 30px; 
+  height: 30px;
 }
 
 .about__container {

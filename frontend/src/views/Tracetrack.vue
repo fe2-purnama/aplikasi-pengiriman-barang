@@ -31,14 +31,31 @@
           <div class="card-body">
             <p>
               <strong>Nomor Pelacakan:</strong>
-              {{ trackingResult.trackingNumber }}
+              {{ trackingResult.shipment._id }}
             </p>
-            <p><strong>Status:</strong> {{ trackingResult.status }}</p>
+            <p><strong>Status:</strong> {{ trackingResult.shipment.status }}</p>
             <p>
               <strong>Estimasi Pengiriman:</strong>
               {{ trackingResult.deliveryEstimate }}
             </p>
             <!-- Informasi pelacakan lainnya -->
+            <p><strong>Detail:</strong> {{ trackingResult.shipment.type }}</p>
+            <p>
+              <strong>Kurir:</strong>
+              {{ trackingResult.shipment.courier.name }}
+            </p>
+            <p>
+              <strong>Nomor Kurir:</strong>
+              {{ trackingResult.shipment.courier.phoneNumber }}
+            </p>
+            <p>
+              <strong>Biaya:</strong>
+              {{ trackingResult.shipment.payments[0].amount }}
+            </p>
+            <p>
+              <strong>Metode Pembayaran:</strong>
+              {{ trackingResult.shipment.payments[0].payment_method }}
+            </p>
           </div>
         </div>
         <div class="no-result" v-else>
@@ -50,6 +67,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "Tracetrack",
   data() {
@@ -59,15 +78,16 @@ export default {
     };
   },
   methods: {
-    trackPackage() {
-      // Simulasi data hasil pelacakan
-      const simulatedResult = {
-        trackingNumber: this.trackingNumber,
-        status: "Dalam Proses",
-        deliveryEstimate: "25 Juni 2024", // Tanggal estimasi pengiriman simulasi
-        // Informasi pelacakan lainnya sesuai kebutuhan simulasi
-      };
-      this.trackingResult = simulatedResult;
+    async trackPackage() {
+      try {
+        const response = await axios.get(`https://kirimkan-be.vercel.app/api/v1/shipments/${this.trackingNumber}`);
+        console.log('Response data:', response.data); // Tambahkan console.log untuk melihat data
+        this.trackingResult = response.data.data;
+      } catch (error) {
+        console.error("Error fetching tracking data:", error);
+        alert("Nomor pelacakan tidak ditemukan atau terjadi kesalahan pada server.");
+        this.trackingResult = null;
+      }
     },
   },
 };
@@ -76,7 +96,7 @@ export default {
 <style scoped>
 .container {
   max-width: 850px;
-  margin: 40px auto ;
+  margin: 40px auto;
   padding: 20px;
   background-color: #f7f7f7;
   border: 1px solid #ddd;

@@ -6,15 +6,17 @@
           <thead>
             <tr>
               <th>Nama Lengkap</th>
-              <th>Nomor Telepon</th>
               <th>Email</th>
+              <th>Nomor Telepon</th>
+              <th>Peran</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" :key="user._id">
+            <tr v-for="user in users" :key="user.id">
               <td>{{ user.fullName }}</td>
-              <td>{{ user.phoneNumber }}</td>
               <td>{{ user.email }}</td>
+              <td>{{ user.phoneNumber }}</td>
+              <td>{{ user.role }}</td>
             </tr>
           </tbody>
         </table>
@@ -42,7 +44,7 @@
       async fetchUsers() {
         try {
           const response = await axios.get('https://kirimkan-be.vercel.app/api/v1/users/all-users');
-          this.users = response.data.users;
+          this.users = response.data;
         } catch (error) {
           console.error('Terjadi kesalahan saat mengambil data pengguna:', error);
         }

@@ -28,6 +28,7 @@ import Dashboard from './views/Dashboard.vue';
 const routes = [
   { path: '/', component: Home },
   { path: '/register', component: Register },
+  { path: '/login', component: Login},
   { path: '/pickup', component: Pickup },
   { path: '/dropoff', component: Dropoff },
   { path: '/aboutus', component: Aboutus },

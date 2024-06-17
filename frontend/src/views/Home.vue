@@ -152,7 +152,7 @@
       </div>
     </section>
 
-    <section class="service" id="service">
+    <!-- <section class="service" id="service">
       <div class="section__container service__container">
         <div class="service__content">
           <p class="section__subheader">SERVICES</p>
@@ -177,9 +177,9 @@
           </ul>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="section__container banner__container">
+    <!-- <section class="section__container banner__container">
       <div class="banner__content">
         <div class="banner__card">
           <h4>25+</h4>
@@ -194,9 +194,9 @@
           <p>Happy Customers</p>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="explore" id="explore">
+    <!-- <section class="explore" id="explore">
       <p class="section__subheader">EXPLORE</p>
       <h2 class="section__header">What's New Today.</h2>
       <div class="explore__bg">
@@ -206,7 +206,7 @@
           <button class="btn">Continue</button>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 

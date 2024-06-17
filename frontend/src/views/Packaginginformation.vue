@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="mb-4">Package Information</h1>
-    <div class="card">
+    <div class="card" v-if="packageInfo">
       <div class="card-body">
         <h5 class="card-title">Type: {{ packageInfo.type }}</h5>
         <p class="card-text">
@@ -27,14 +27,25 @@
         </p>
       </div>
     </div>
+    <div v-else>
+      <p>Loading...</p>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      packageInfo: {
+      packageInfo: null,
+      errorMessage: ""
+    };
+  },
+  methods: {
+    fetchPackageInfo() {
+      axios.post('https://kirimkan-be.vercel.app/api/v1/packages/create-packages', {
         type: "goods",
         itemName: "Books",
         quantity: "5",
@@ -44,8 +55,22 @@ export default {
         width: 15,
         remarks: "Handle with care",
         shipmentId: "6668838a583d85dada4b45a3"
-      }
-    };
+      })
+      .then(response => {
+        if (response.data.status) {
+          this.packageInfo = response.data.data;
+        } else {
+          this.errorMessage = response.data.message;
+        }
+      })
+      .catch(error => {
+        console.error("There was an error fetching the package information:", error);
+        this.errorMessage = "An error occurred while fetching the package information.";
+      });
+    }
+  },
+  mounted() {
+    this.fetchPackageInfo();
   }
 };
 </script>

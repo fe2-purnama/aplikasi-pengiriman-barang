@@ -27,27 +27,41 @@
   </template>
   
   <script>
+  import axios from 'axios';
+  
   export default {
     data() {
       return {
         profile: {
-          fullName: "John Doe 123123123123",
-          phoneNumber: "1234567890",
-          city: "New York",
-          country: "USA"
+          fullName: "",
+          phoneNumber: "",
+          city: "",
+          country: ""
         }
       };
     },
     methods: {
+      fetchProfile() {
+        axios.get('https://kirimkan-be.vercel.app/api/v1/users/authenticate')
+          .then(response => {
+            this.profile = response.data;
+          })
+          .catch(error => {
+            console.error("There was an error fetching the profile data:", error);
+          });
+      },
       editProfile() {
         console.log("Edit Profile");
       }
+    },
+    mounted() {
+      this.fetchProfile();
     }
   };
   </script>
   
   <style scoped>
-  .container{
+  .container {
     margin-top: 100px;
     margin-bottom: 20px;
   }
@@ -55,11 +69,9 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
   .card-header {
     background-color: #ffa500 !important;
     color: #fff;
     border-radius: 10px 10px 0 0;
   }
-  </style>
-  
+  </style>  

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Services</h1>
     <div class="row w-100 mb-3 d-flex align-items-stretch">
       <div class="col-4">
@@ -66,6 +66,9 @@
 </template>
 
 <style scoped>
+.container{
+  margin-top: 100px;
+}
 .card {
   text-align: left;
   margin-left: 20px;

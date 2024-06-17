@@ -12,34 +12,35 @@
         <div class="input__group">
           <div class="trace-track-container">
             <label for="check-in">Trace & Track</label>
-            <div class="row">
-              <div class="col-6">
-                <input type="text" id="check-in" placeholder="Check In" />
-              </div>
-              <div class="col-6">
-                <button type="button" class="btn small-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
+            <div class="input-wrapper">
+              <input type="text" id="check-in" placeholder="" />
+              <button type="button" class="btn small-btn">
+                <i class="fas fa-search"></i>
+              </button>
             </div>
           </div>
         </div>
         <div class="input__group">
-          <!-- <span><i class="ri-calendar-2-fill"></i></span> -->
-          <div>
+          <div class="trace-track-container">
             <label for="check-out">Biaya Kirim</label>
-            <input type="text" placeholder="Check Out" />
+            <div class="input-wrapper">
+              <input type="text" placeholder="" />
+              <button type="button" class="btn small-btn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
           </div>
         </div>
         <div class="input__group">
-          <!-- <span><i class="ri-user-fill"></i></span> -->
-          <div>
+          <div class="trace-track-container">
             <label for="guest">Temukan Drop Point</label>
-            <input type="text" placeholder="Guest" />
+            <div class="input-wrapper">
+              <input type="text" placeholder="" />
+              <button type="button" class="btn small-btn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="input__group input__btn">
-          <button class="btn">CHECH OUT</button>
         </div>
       </form>
     </section>
@@ -49,25 +50,25 @@
         <img src="/public/kurir.jpeg" alt="about" />
       </div>
       <div class="about__content">
-        <p class="section__subheader">ABOUT US</p>
-        <h2 class="section__header">The Best Holidays Start Here!</h2>
+        <p class="section__subheader">TENTANG KAMI</p>
+        <h2 class="section__header">
+          Pengiriman Barang yang Terbaik Dimulai dari Sini!
+        </h2>
         <p class="section__description">
-          With a focus on quality accommodations, personalized experiences, and
-          seamless booking, our platform is dedicated to ensuring that every
-          traveler embarks on their dream holiday with confidence and
-          excitement.
+          Dengan fokus pada layanan pengiriman berkualitas, pengalaman yang
+          dipersonalisasi, dan proses pemesanan yang mulus, platform kami
+          didedikasikan untuk memastikan setiap pelanggan dapat mengirimkan
+          barang mereka dengan percaya diri dan ketenangan.
         </p>
         <div class="about__btn">
-          <button class="btn">Read More</button>
+          <button class="btn btn-continue">Selengkapnya</button>
         </div>
       </div>
     </section>
 
     <section class="section__container room__container">
-      <p class="section__subheader">OUR LIVING ROOM</p>
-      <h2 class="section__header text-align-center">
-        The Most Memorable Rest Time Starts Here.
-      </h2>
+      <p class="section__subheader">PROMO</p>
+      <h2 class="section__header">Dapatkan Promo Menarik dari Kami</h2>
       <div class="room__grid">
         <div class="room__card">
           <div class="room__card__image">
@@ -79,16 +80,21 @@
             </div>
           </div>
           <div class="room__card__details">
-            <h4>Deluxe Ocean View</h4>
+            <h4>Diskon 50% untuk Pengiriman Pertama Anda!</h4>
             <p>
-              Bask in luxury with breathtaking ocean views from your private
-              suite.
+              Nikmati diskon 50% untuk pengiriman pertama Anda menggunakan kode
+              promo FIRST50.
             </p>
-            <h5>Starting from <span>$299/night</span></h5>
-            <button class="btn">Book Now</button>
+            <ul>
+              <li>Berlaku untuk pengguna baru.</li>
+              <li>Maksimal diskon Rp50.000.</li>
+              <li>Berlaku hingga 31 Juli 2024.</li>
+            </ul>
+            <button class="btn btn-promo">Claim Discount</button>
           </div>
         </div>
         <div class="room__card">
+          <!-- Card 2 -->
           <div class="room__card__image">
             <img src="/public/memoriable.jpeg" alt="room" />
             <div class="room__card__icons">
@@ -98,16 +104,21 @@
             </div>
           </div>
           <div class="room__card__details">
-            <h4>Executive Cityscape Room</h4>
+            <h4>Pengiriman Gratis untuk Pengguna Setia!</h4>
             <p>
-              Experience urban elegance and modern comfort in the heart of the
-              city.
+              Dapatkan 1 pengiriman gratis setelah Anda melakukan 5 kali
+              pengiriman dengan aplikasi kami.
             </p>
-            <h5>Starting from <span>$199/night</span></h5>
-            <button class="btn">Book Now</button>
+            <ul>
+              <li>Pengiriman gratis berlaku untuk pengiriman dalam kota.</li>
+              <li>Promo ini tidak dapat digabungkan dengan promo lainnya.</li>
+              <li>Tidak ada batasan waktu untuk mengumpulkan 5 pengiriman.</li>
+            </ul>
+            <button class="btn btn-promo">Get Free Delivery</button>
           </div>
         </div>
         <div class="room__card">
+          <!-- Card 3 -->
           <div class="room__card__image">
             <img src="/public/memoriable.jpeg" alt="room" />
             <div class="room__card__icons">
@@ -117,13 +128,25 @@
             </div>
           </div>
           <div class="room__card__details">
-            <h4>Family Garden Retreat</h4>
+            <h4>Ajak Teman, Dapatkan Bonus Kredit Pengiriman!</h4>
             <p>
-              Spacious and inviting, perfect for creating cherished memories
-              with loved ones.
+              Ajak teman Anda untuk bergabung dengan aplikasi kami dan dapatkan
+              bonus kredit pengiriman sebesar Rp25.000.
             </p>
-            <h5>Starting from <span>$249/night</span></h5>
-            <button class="btn">Book Now</button>
+            <ul>
+              <li>
+                Teman yang diundang harus mendaftar dan melakukan pengiriman
+                pertama menggunakan kode referal Anda.
+              </li>
+              <li>
+                Diskon 20% untuk teman yang diundang berlaku dengan maksimal
+                diskon Rp30.000.
+              </li>
+              <li>
+                Bonus kredit pengiriman berlaku hingga 60 hari setelah diterima.
+              </li>
+            </ul>
+            <button class="btn btn-promo">Invite Friends</button>
           </div>
         </div>
       </div>
@@ -258,7 +281,7 @@
 }
 
 .btn {
-  padding: 0.75rem 1.5rem;
+  /* padding: 0.75rem 1.5rem; */
   outline: none;
   border: none;
   font-size: 1rem;
@@ -270,8 +293,18 @@
   transition: 0.3s;
 }
 
+.btn-continue {
+  padding: 0.75rem 1.5rem;
+}
+
+.btn-promo {
+  padding: 0.4rem 1.5rem;
+  text-align: center;
+  margin-top: 20px;
+}
 .btn:hover {
   background-color: var(--primary-color-dark);
+  color: var(--primary-color);
 }
 
 img {
@@ -426,7 +459,8 @@ nav {
   color: var(--text-dark);
   font-size: 0.9rem;
   outline: none;
-  border: none;
+  margin-right: 5px;
+  /* border: none; */
 }
 
 .input__group input::placeholder {
@@ -434,10 +468,18 @@ nav {
 }
 
 .small-btn {
-  width: 30px; 
+  width: 30px;
   height: 30px;
 }
 
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  /* background-color: #fff; */
+}
 .about__container {
   overflow: hidden;
   display: grid;
@@ -504,6 +546,14 @@ nav {
 
 .room__card__details {
   padding: 1rem;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room__card__details ul {
+  margin-left: 20px;
 }
 
 .room__card h4 {

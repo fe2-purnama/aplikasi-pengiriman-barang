@@ -21,15 +21,8 @@
         <li class="nav-item">
           <router-link to="/" class="nav-link text-white">Home</router-link>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="#" id="ordersDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Order
-          </a>
-          <div class="dropdown-menu bg-orange" aria-labelledby="ordersDropdown">
-            <router-link to="/pickup" class="dropdown-item text-white">Pick Up</router-link>
-            <router-link to="/dropoff" class="dropdown-item text-white">Drop Off</router-link>
-          </div>
+        <li class="nav-item">
+          <router-link to="/order" class="nav-link text-white">Order</router-link>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" id="SearchDropdown" role="button" data-toggle="dropdown"

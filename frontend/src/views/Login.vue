@@ -3,8 +3,8 @@
     <h1>Login</h1>
     <form @submit.prevent="login">
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="email" class="form-control" required>
+        <label for="emailOrPhoneNumber">Email:</label>
+        <input type="text" id="emailOrPhoneNumber" v-model="email" class="form-control" required>
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
@@ -18,6 +18,7 @@
 
 <script>
 import axios from 'axios';
+import VueCookies from 'vue-cookies';
 
 export default {
   data() {
@@ -32,13 +33,19 @@ export default {
     async login() {
       try {
         const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/users/login', {
-          email: this.email,
+          emailOrPhoneNumber: this.email,
           password: this.password
         });
+
+        // Simpan token ke cookies
+        VueCookies.set('token', response.data.data.token);
+
         this.message = response.data.message;
         this.success = true;
-        // Redirect to dashboard or home page after successful login
-        this.$router.push('/dashboard');
+        this.$router.push('/').then(() => {
+          location.reload();
+        });
+
       } catch (error) {
         if (error.response && error.response.data) {
           this.message = error.response.data.message;

@@ -22,6 +22,7 @@ import Tracetrack from './views/Tracetrack.vue';
 import Faq from './views/Faq.vue';
 import Packaginginformation from './views/Packaginginformation.vue';
 import Term from './views/Term.vue';
+import Profile from './views/Profile.vue';
 import Users from './views/Users.vue';
 import Dashboard from './views/Dashboard.vue';
 
@@ -40,6 +41,7 @@ const routes = [
   { path: '/packaginginformation', component: Packaginginformation },
   { path: '/term', component: Term },
   { path: '/users', component: Users },
+  { path: '/profile', component: Profile},
   { path: '/dashboard', component: Dashboard },
 ];
 

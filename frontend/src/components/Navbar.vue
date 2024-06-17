@@ -63,23 +63,59 @@
 
       <!-- Right side links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Nav Item - Login -->
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link text-white">Login</router-link>
-        </li>
-        <!-- Nav Item - Register -->
-        <li class="nav-item">
-          <router-link to="/register" class="nav-link text-white">Register</router-link>
-        </li>
+        <!-- Conditional display based on token -->
+        <template v-if="isLoggedIn">
+          <!-- Nav Item - My Profile -->
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link text-white">My Profile</router-link>
+          </li>
+          <!-- Nav Item - Logout -->
+          <li class="nav-item">
+            <a href="#" class="nav-link text-white" @click.prevent="logout">Logout</a>
+          </li>
+        </template>
+        <template v-else>
+          <!-- Nav Item - Login -->
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link text-white">Login</router-link>
+          </li>
+          <!-- Nav Item - Register -->
+          <li class="nav-item">
+            <router-link to="/register" class="nav-link text-white">Register</router-link>
+          </li>
+        </template>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
+import VueCookies from 'vue-cookies';
+
 export default {
-  // Your script here
-}
+  data() {
+    return {
+      isLoggedIn: false // Default value for login status
+    };
+  },
+  created() {
+    // Check if there's a token in cookies
+    const token = VueCookies.get('token');
+    if (token) {
+      this.isLoggedIn = true; // Set login status to true
+    }
+  },
+  methods: {
+    logout() {
+      // Clear token from cookies
+      VueCookies.remove('token');
+      // Update login status
+      this.isLoggedIn = false;
+      // Redirect to login page after logout
+      this.$router.push('/login');
+    }
+  }
+};
 </script>
 
 <style scoped>

@@ -2,19 +2,41 @@
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-header bg-primary text-white">
-        <h3 class="mb-0">Drop Off Request</h3>
+        <h3 class="mb-0">Permintaan Pengantaran</h3>
       </div>
       <div class="card-body">
-        <div class="grid-container">
-          <!-- Left side - Form -->
-          <div class="form-section">
-            <form @submit.prevent="submitDropOffRequest">
-              <!-- Receiver Details -->
-              <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Receiver Details</div>
+        <!-- Bagian Panduan -->
+        <div class="row guide-section mb-4">
+          <div class="card col-6">
+            <div class="card-header bg-info text-white">Panduan Mengisi Formulir</div>
+            <div class="card-body">
+              <ul>
+                <li>Pastikan semua bidang diisi dengan benar.</li>
+                <li>Berikan detail penerima yang akurat untuk kelancaran proses.</li>
+                <li>Pilih kurir dan jenis layanan yang sesuai.</li>
+                <li>Masukkan detail paket dengan hati-hati, terutama dimensi dan beratnya.</li>
+                <li>Gunakan bagian catatan untuk instruksi atau catatan khusus.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card col-6">
+            <div class="card-header bg-info text-white">Informasi Tambahan</div>
+            <div class="card-body">
+              <p>Pastikan untuk memeriksa kembali detail sebelum mengirim formulir. Jika Anda memiliki pertanyaan atau membutuhkan bantuan, silakan hubungi tim dukungan kami.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bagian Formulir -->
+        <div class="form-section">
+          <form @submit.prevent="submitDropOffRequest">
+            <div class="row">
+              <!-- Detail Penerima -->
+              <div class="card col-6 mb-4">
+                <div class="card-header bg-secondary text-white">Detail Penerima</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="receiverName">Name</label>
+                    <label for="receiverName">Nama</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -23,7 +45,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="receiverPhoneNumber">Phone Number</label>
+                    <label for="receiverPhoneNumber">Nomor Telepon</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
@@ -32,7 +54,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="destinationCity">City</label>
+                    <label for="destinationCity">Kota</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-city"></i></span>
@@ -41,7 +63,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="postCode">Post Code</label>
+                    <label for="postCode">Kode Pos</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
@@ -50,7 +72,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="address">Address</label>
+                    <label for="address">Alamat</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
@@ -61,12 +83,12 @@
                 </div>
               </div>
 
-              <!-- Courier Selection -->
-              <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Courier Selection</div>
+              <!-- Pilihan Kurir -->
+              <div class="card col-6 mb-4">
+                <div class="card-header bg-secondary text-white">Pilihan Kurir</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="courier">Select Courier</label>
+                    <label for="courier">Pilih Kurir</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-truck"></i></span>
@@ -77,135 +99,113 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Service Selection -->
-              <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Service Selection</div>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="service">Select Service</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-concierge-bell"></i></span>
-                      </div>
-                      <select class="form-control" id="service" v-model="dropOffRequest.serviceId" required>
-                        <option v-for="service in services" :key="service.id" :value="service.id">{{ service.name }}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Package Details -->
-              <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Package Details</div>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="packageType">Package Type</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-box"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="packageType" v-model="dropOffRequest.package.type" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="itemName">Item Name</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-tag"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="itemName" v-model="dropOffRequest.package.itemName" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-sort-amount-up"></i></span>
-                      </div>
-                      <input type="number" class="form-control" id="quantity" v-model="dropOffRequest.package.quantity" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="itemValue">Item Value</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                      </div>
-                      <input type="number" class="form-control" id="itemValue" v-model="dropOffRequest.package.itemValue" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="weight">Weight (kg)</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-weight"></i></span>
-                      </div>
-                      <input type="number" class="form-control" id="weight" v-model="dropOffRequest.package.weight" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="dimensions">Dimensions (cm)</label>
-                    <div class="d-flex">
-                      <div class="input-group mr-2">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">H</span>
-                        </div>
-                        <input type="number" class="form-control" placeholder="Height" v-model="dropOffRequest.package.height" required>
-                      </div>
-                      <div class="input-group mr-2">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">W</span>
-                        </div>
-                        <input type="number" class="form-control" placeholder="Width" v-model="dropOffRequest.package.width" required>
-                      </div>
+                <!-- Pilihan Layanan -->
+                <div class="card mb-4">
+                  <div class="card-header bg-secondary text-white">Pilihan Layanan</div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="service">Pilih Layanan</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">L</span>
+                          <span class="input-group-text"><i class="fas fa-concierge-bell"></i></span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Length" v-model="dropOffRequest.package.length" required>
+                        <select class="form-control" id="service" v-model="dropOffRequest.serviceId" required>
+                          <option v-for="service in services" :key="service.id" :value="service.id">{{ service.name }}</option>
+                        </select>
                       </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="remarks">Remarks</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-comment"></i></span>
-                      </div>
-                      <textarea class="form-control" id="remarks" v-model="dropOffRequest.package.remarks"></textarea>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
-            </form>
-          </div>
-
-          <!-- Right side - Guide -->
-          <div class="guide-section">
+            <!-- Detail Paket -->
             <div class="card mb-4">
-              <div class="card-header bg-info text-white">Guide to Fill the Form</div>
+              <div class="card-header bg-secondary text-white">Detail Paket</div>
               <div class="card-body">
-                <ul>
-                  <li>Ensure all fields are filled correctly.</li>
-                  <li>Provide accurate receiver details for smooth processing.</li>
-                  <li>Select the appropriate courier and service type.</li>
-                  <li>Enter package details carefully, especially dimensions and weight.</li>
-                  <li>Use the remarks section for any special instructions or notes.</li>
-                </ul>
+                <div class="form-group">
+                  <label for="packageType">Jenis Paket</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-box"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="packageType" v-model="dropOffRequest.package.type" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="itemName">Nama Barang</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="itemName" v-model="dropOffRequest.package.itemName" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Kuantitas</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-sort-amount-up"></i></span>
+                    </div>
+                    <input type="number" class="form-control" id="quantity" v-model="dropOffRequest.package.quantity" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="itemValue">Nilai Barang</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                    </div>
+                    <input type="number" class="form-control" id="itemValue" v-model="dropOffRequest.package.itemValue" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="weight">Berat (kg)</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-weight"></i></span>
+                    </div>
+                    <input type="number" class="form-control" id="weight" v-model="dropOffRequest.package.weight" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="dimensions">Dimensi (cm)</label>
+                  <div class="d-flex">
+                    <div class="input-group mr-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">T</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Tinggi" v-model="dropOffRequest.package.height" required>
+                    </div>
+                    <div class="input-group mr-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">L</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Lebar" v-model="dropOffRequest.package.width" required>
+                    </div>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                      <span class="input-group-text">P</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Panjang" v-model="dropOffRequest.package.length" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="remarks">Catatan</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                    </div>
+                    <textarea class="form-control" id="remarks" v-model="dropOffRequest.package.remarks"></textarea>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card">
-              <div class="card-header bg-info text-white">Additional Information</div>
-              <div class="card-body">
-                <p>Make sure to double-check the details before submitting the form. If you have any questions or need assistance, please contact our support team.</p>
-              </div>
-            </div>
-          </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Kirim Permintaan</button>
+          </form>
         </div>
       </div>
     </div>
@@ -248,41 +248,43 @@ export default {
   },
   methods: {
     fetchCouriers() {
-      // Replace with actual API call
+      // Ganti dengan panggilan API sebenarnya
       this.couriers = [
-        { id: 1, name: 'Courier A' },
-        { id: 2, name: 'Courier B' }
+        { id: 1, name: 'Kurir A' },
+        { id: 2, name: 'Kurir B' }
       ];
     },
     fetchServices() {
-      // Replace with actual API call
+      // Ganti dengan panggilan API sebenarnya
       this.services = [
-        { id: 1, name: 'Standard Service' },
-        { id: 2, name: 'Express Service' }
+        { id: 1, name: 'Layanan Standar' },
+        { id: 2, name: 'Layanan Ekspres' }
       ];
     },
     submitDropOffRequest() {
-      // Handle form submission
-      console.log('Drop Off Request:', this.dropOffRequest);
-      // You can send this data to the server using an API call
+      // Tangani pengiriman formulir
+      console.log('Permintaan Pengantaran:', this.dropOffRequest);
+      // Anda bisa mengirim data ini ke server menggunakan panggilan API
     }
   }
 };
 </script>
 
 <style scoped>
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+.container {
+  padding: 90px;
 }
 
-.form-section, .guide-section {
+.guide-section,
+.form-section {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
 }
-
+.row {
+  display: flex !important;
+  justify-content: space-between !important;
+}
 .card-header {
   font-size: 1.2em;
 }

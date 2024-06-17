@@ -2,19 +2,19 @@
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-header bg-primary text-white">
-        <h3 class="mb-0">Pick Up Request</h3>
+        <h3 class="mb-0">Permintaan Pengambilan</h3>
       </div>
       <div class="card-body">
         <div class="grid-container">
-          <!-- Left side - Form -->
+          <!-- Sisi Kiri - Formulir -->
           <div class="form-section">
             <form @submit.prevent="submitPickupRequest">
-              <!-- Sender Details -->
+              <!-- Detail Pengirim -->
               <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Sender Details</div>
+                <div class="card-header bg-secondary text-white">Detail Pengirim</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="senderName">Name</label>
+                    <label for="senderName">Nama</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -23,7 +23,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="senderPhoneNumber">Phone Number</label>
+                    <label for="senderPhoneNumber">Nomor Telepon</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
@@ -32,7 +32,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="originCity">City</label>
+                    <label for="originCity">Kota</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-city"></i></span>
@@ -41,7 +41,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="postCode">Post Code</label>
+                    <label for="postCode">Kode Pos</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
@@ -50,7 +50,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="address">Address</label>
+                    <label for="address">Alamat</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
@@ -61,12 +61,12 @@
                 </div>
               </div>
 
-              <!-- Courier Selection -->
+              <!-- Pemilihan Kurir -->
               <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Courier Selection</div>
+                <div class="card-header bg-secondary text-white">Pemilihan Kurir</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="courier">Select Courier</label>
+                    <label for="courier">Pilih Kurir</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-truck"></i></span>
@@ -79,12 +79,12 @@
                 </div>
               </div>
 
-              <!-- Service Selection -->
+              <!-- Pemilihan Layanan -->
               <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Service Selection</div>
+                <div class="card-header bg-secondary text-white">Pemilihan Layanan</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="service">Select Service</label>
+                    <label for="service">Pilih Layanan</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-concierge-bell"></i></span>
@@ -97,12 +97,12 @@
                 </div>
               </div>
 
-              <!-- Package Details -->
+              <!-- Detail Paket -->
               <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">Package Details</div>
+                <div class="card-header bg-secondary text-white">Detail Paket</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="packageType">Package Type</label>
+                    <label for="packageType">Jenis Paket</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box"></i></span>
@@ -111,7 +111,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="itemName">Item Name</label>
+                    <label for="itemName">Nama Barang</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-tag"></i></span>
@@ -120,7 +120,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="quantity">Quantity</label>
+                    <label for="quantity">Kuantitas</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-sort-amount-up"></i></span>
@@ -129,7 +129,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="itemValue">Item Value</label>
+                    <label for="itemValue">Nilai Barang</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
@@ -138,7 +138,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="weight">Weight (kg)</label>
+                    <label for="weight">Berat (kg)</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-weight"></i></span>
@@ -147,30 +147,30 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="dimensions">Dimensions (cm)</label>
+                    <label for="dimensions">Dimensi (cm)</label>
                     <div class="d-flex">
                       <div class="input-group mr-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">H</span>
+                          <span class="input-group-text">T</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Height" v-model="pickupRequest.package.height" required>
+                        <input type="number" class="form-control" placeholder="Tinggi" v-model="pickupRequest.package.height" required>
                       </div>
                       <div class="input-group mr-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">W</span>
+                          <span class="input-group-text">L</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Width" v-model="pickupRequest.package.width" required>
+                        <input type="number" class="form-control" placeholder="Lebar" v-model="pickupRequest.package.width" required>
                       </div>
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">L</span>
+                          <span class="input-group-text">P</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Length" v-model="pickupRequest.package.length" required>
+                        <input type="number" class="form-control" placeholder="Panjang" v-model="pickupRequest.package.length" required>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="remarks">Remarks</label>
+                    <label for="remarks">Catatan</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-comment"></i></span>
@@ -181,28 +181,28 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
+              <button type="submit" class="btn btn-primary btn-block">Kirim Permintaan</button>
             </form>
           </div>
 
-          <!-- Right side - Guide -->
+          <!-- Sisi Kanan - Panduan -->
           <div class="guide-section">
             <div class="card mb-4">
-              <div class="card-header bg-info text-white">Guide to Fill the Form</div>
+              <div class="card-header bg-info text-white">Panduan Mengisi Formulir</div>
               <div class="card-body">
                 <ul>
-                  <li>Ensure all fields are filled correctly.</li>
-                  <li>Provide accurate sender details for smooth processing.</li>
-                  <li>Select the appropriate courier and service type.</li>
-                  <li>Enter package details carefully, especially dimensions and weight.</li>
-                  <li>Use the remarks section for any special instructions or notes.</li>
+                  <li>Pastikan semua kolom diisi dengan benar.</li>
+                  <li>Sertakan detail pengirim yang akurat untuk proses yang lancar.</li>
+                  <li>Pilih kurir dan jenis layanan yang sesuai.</li>
+                  <li>Masukkan detail paket dengan hati-hati, terutama dimensi dan berat.</li>
+                  <li>Gunakan bagian catatan untuk instruksi khusus atau catatan tambahan.</li>
                 </ul>
               </div>
             </div>
             <div class="card">
-              <div class="card-header bg-info text-white">Additional Information</div>
+              <div class="card-header bg-info text-white">Informasi Tambahan</div>
               <div class="card-body">
-                <p>Make sure to double-check the details before submitting the form. If you have any questions or need assistance, please contact our support team.</p>
+                <p>Pastikan untuk memeriksa kembali detail sebelum mengirimkan formulir. Jika ada pertanyaan atau butuh bantuan, silakan hubungi tim dukungan kami.</p>
               </div>
             </div>
           </div>
@@ -248,23 +248,23 @@ export default {
   },
   methods: {
     fetchCouriers() {
-      // Replace with actual API call
+      // Ganti dengan panggilan API yang sebenarnya
       this.couriers = [
-        { id: 1, name: 'Courier A' },
-        { id: 2, name: 'Courier B' }
+        { id: 1, name: 'Kurir A' },
+        { id: 2, name: 'Kurir B' }
       ];
     },
     fetchServices() {
-      // Replace with actual API call
+      // Ganti dengan panggilan API yang sebenarnya
       this.services = [
-        { id: 1, nameServices: 'Standard Service' },
-        { id: 2, nameServices: 'Express Service' }
+        { id: 1, nameServices: 'Layanan Standar' },
+        { id: 2, nameServices: 'Layanan Express' }
       ];
     },
     submitPickupRequest() {
-      // Handle form submission
-      console.log('Pickup Request:', this.pickupRequest);
-      // You can send this data to the server using an API call
+      // Menangani pengiriman formulir
+      console.log('Permintaan Pengambilan:', this.pickupRequest);
+      // Anda bisa mengirimkan data ini ke server menggunakan panggilan API
     }
   }
 };

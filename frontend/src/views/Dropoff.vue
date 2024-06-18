@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container">
     <div class="card shadow-sm">
       <div class="card-header bg-primary text-white">
         <h3 class="mb-0">Permintaan Drop Off</h3>
@@ -235,6 +235,9 @@ export default {
 
 
 <style scoped>
+.container{
+  margin-top: 100px;
+}
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -253,6 +256,10 @@ export default {
 
 .card {
   margin-bottom: 20px;
+}
+
+.card-body ul{
+  text-align: justify;
 }
 
 .input-group-prepend .input-group-text {

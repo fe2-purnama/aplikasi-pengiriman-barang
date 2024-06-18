@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1 class="mt-5 mb-3">Trace & Track</h1>
+  <div class="container mt-5">
+    <h1 class="mb-3">Trace & Track</h1>
 
     <!-- Bagian untuk proses melacak -->
     <div class="row">
@@ -95,6 +95,7 @@ export default {
 
 <style scoped>
 .container {
+  /* margin-top: 200px; */
   max-width: 850px;
   margin: 40px auto;
   padding: 20px;

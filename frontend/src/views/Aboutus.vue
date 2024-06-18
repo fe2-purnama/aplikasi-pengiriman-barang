@@ -29,9 +29,6 @@
             Anda setiap saat. Jadi, jika Anda memiliki pertanyaan atau
             memerlukan bantuan, jangan ragu untuk menghubungi kami.
           </p>
-          <div class="about-btn">
-            <button class="btn btn-continue">Selengkapnya</button>
-          </div>
         </div>
       </div>
     </div>

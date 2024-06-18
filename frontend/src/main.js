@@ -26,6 +26,9 @@ import Profile from './views/Profile.vue';
 import Users from './views/Users.vue';
 import Order from './views/Order.vue';
 import Dashboard from './views/Dashboard.vue';
+import Userslist from './views/Userslist.vue';
+import Courierslist from './views/Courierslist.vue';
+import Serviceslist from './views/Serviceslist.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -45,6 +48,9 @@ const routes = [
   { path: '/profile', component: Profile},
   { path: '/order', component: Order},
   { path: '/dashboard', component: Dashboard },
+  { path: '/userslist', component:  Userslist},
+  { path: '/courierslist', component: Courierslist},
+  { path: '/serviceslist', component: Serviceslist},
 ];
 
 const router = createRouter({

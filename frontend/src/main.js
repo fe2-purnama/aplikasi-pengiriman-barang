@@ -26,13 +26,17 @@ import Profile from './views/Profile.vue';
 import Users from './views/Users.vue';
 import Order from './views/Order.vue';
 import Dashboard from './views/Dashboard.vue';
+import Userslist from './views/Userslist.vue';
+import Courierslist from './views/Courierslist.vue';
+import Serviceslist from './views/Serviceslist.vue';
+import Shipmentlist from './views/Shipmentlist.vue';
 
 const routes = [
   { path: '/', component: Home },
   { path: '/register', component: Register },
   { path: '/login', component: Login},
-  { path: '/pickup', component: Pickup },
-  { path: '/dropoff', component: Dropoff },
+  { path: '/pickup/:shipmentId', component: Pickup },
+  { path: '/dropoff/:shipmentId', component: Dropoff },
   { path: '/aboutus', component: Aboutus },
   { path: '/finddroppoint', component: Finddroppoint },
   { path: '/services', component: Services },
@@ -45,6 +49,10 @@ const routes = [
   { path: '/profile', component: Profile},
   { path: '/order', component: Order},
   { path: '/dashboard', component: Dashboard },
+  { path: '/userslist', component:  Userslist},
+  { path: '/courierslist', component: Courierslist},
+  { path: '/serviceslist', component: Serviceslist},
+  { path: '/shipmentlist', component: Shipmentlist},
 ];
 
 const router = createRouter({

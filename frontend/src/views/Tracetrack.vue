@@ -31,30 +31,30 @@
           <div class="card-body">
             <p>
               <strong>Nomor Pelacakan:</strong>
-              {{ trackingResult.shipment._id }}
+              {{ trackingResult.shipment?._id || 'N/A' }}
             </p>
-            <p><strong>Status:</strong> {{ trackingResult.shipment.status }}</p>
+            <p><strong>Status:</strong> {{ trackingResult.shipment?.status || 'N/A' }}</p>
             <p>
               <strong>Estimasi Pengiriman:</strong>
-              {{ trackingResult.deliveryEstimate }}
+              {{ trackingResult.deliveryEstimate || 'N/A' }}
             </p>
             <!-- Informasi pelacakan lainnya -->
-            <p><strong>Detail:</strong> {{ trackingResult.shipment.type }}</p>
+            <p><strong>Detail:</strong> {{ trackingResult.shipment?.type || 'N/A' }}</p>
             <p>
               <strong>Kurir:</strong>
-              {{ trackingResult.shipment.courier.name }}
+              {{ trackingResult.shipment?.courier?.name || 'N/A' }}
             </p>
             <p>
               <strong>Nomor Kurir:</strong>
-              {{ trackingResult.shipment.courier.phoneNumber }}
+              {{ trackingResult.shipment?.courier?.phoneNumber || 'N/A' }}
             </p>
             <p>
               <strong>Biaya:</strong>
-              {{ trackingResult.shipment.payments[0].amount }}
+              {{ trackingResult.shipment?.payments?.[0]?.amount || 'N/A' }}
             </p>
             <p>
               <strong>Metode Pembayaran:</strong>
-              {{ trackingResult.shipment.payments[0].payment_method }}
+              {{ trackingResult.shipment?.payments?.[0]?.payment_method || 'N/A' }}
             </p>
           </div>
         </div>
@@ -92,6 +92,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .container {

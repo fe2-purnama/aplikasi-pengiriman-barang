@@ -72,7 +72,7 @@
                         <span class="input-group-text"><i class="fas fa-truck"></i></span>
                       </div>
                       <select class="form-control" id="courier" v-model="pickupRequest.courierId" required>
-                        <option v-for="courier in couriers" :key="courier._id" :value="courier._id">{{ courier.shipment.courier.name }}</option>
+                        <option v-for="courier in couriers" :key="courier.id" :value="courier.id">{{ courier.name }}</option>
                       </select>
                     </div>
                   </div>
@@ -89,10 +89,10 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-concierge-bell"></i></span>
                       </div>
-                      <select class="form-control" id="serviceId" v-model="pickupRequest.serviceId" required>
+                      <select class="form-control" id="service" v-model="pickupRequest.serviceId" required>
                         <option v-for="service in services" :key="service.id" :value="service.id">{{ service.nameServices }}</option>
                       </select>
-                    </div>
+                    </div>         
                   </div>
                 </div>
               </div>
@@ -107,7 +107,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="packageType" v-model="pickupRequest.packageType" required>
+                      <input type="text" class="form-control" id="packageType" v-model="pickupRequest.package.type" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -116,7 +116,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-tag"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="itemName" v-model="pickupRequest.itemName" required>
+                      <input type="text" class="form-control" id="itemName" v-model="pickupRequest.package.itemName" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -125,7 +125,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-sort-amount-up"></i></span>
                       </div>
-                      <input type="number" class="form-control" id="quantity" v-model="pickupRequest.quantity" required>
+                      <input type="number" class="form-control" id="quantity" v-model="pickupRequest.package.quantity" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -134,7 +134,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                       </div>
-                      <input type="number" class="form-control" id="itemValue" v-model="pickupRequest.itemValue" required>
+                      <input type="number" class="form-control" id="itemValue" v-model="pickupRequest.package.itemValue" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -143,7 +143,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-weight"></i></span>
                       </div>
-                      <input type="number" class="form-control" id="weight" v-model="pickupRequest.weight" required>
+                      <input type="number" class="form-control" id="weight" v-model="pickupRequest.package.weight" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -153,19 +153,19 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">T</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Tinggi" v-model="pickupRequest.dimensions.height" required>
+                        <input type="number" class="form-control" placeholder="Tinggi" v-model="pickupRequest.package.height" required>
                       </div>
                       <div class="input-group mr-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text">L</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Lebar" v-model="pickupRequest.dimensions.width" required>
+                        <input type="number" class="form-control" placeholder="Lebar" v-model="pickupRequest.package.width" required>
                       </div>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">P</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Panjang" v-model="pickupRequest.dimensions.length" required>
+                        <input type="number" class="form-control" placeholder="Panjang" v-model="pickupRequest.package.length" required>
                       </div>
                     </div>
                   </div>
@@ -175,19 +175,21 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-comment"></i></span>
                       </div>
-                      <textarea class="form-control" id="remarks" v-model="pickupRequest.remarks"></textarea>
+                      <textarea class="form-control" id="remarks" v-model="pickupRequest.package.remarks"></textarea>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Kirim Permintaan</button>
+              <button type="submit" class="btn btn-primary btn-block">Kirim Permintaan</button>
             </form>
           </div>
           <!-- Sisi Kanan - Tampilan Data (Jika Ada) -->
           <div class="data-section">
             <!-- Bisa ditambahkan tampilan data jika diperlukan -->
           </div>
+
+          
         </div>
       </div>
     </div>
@@ -200,60 +202,63 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      couriers: [],
+      services: [],
       pickupRequest: {
-        name: '',
-        phoneNumber: '',
-        originCity: '',
-        postCode: '',
-        address: '',
-        courierId: '',
-        serviceId: '',
-        packageType: '',
-        itemName: '',
-        quantity: '',
-        itemValue: '',
-        weight: '',
-        dimensions: {
+        sender: {
+          name: '',
+          phoneNumber: '',
+          originCity: '',
+          postCode: '',
+          address: ''
+        },
+        courierId: null,
+        serviceId: null,
+        package: {
+          type: '',
+          itemName: '',
+          quantity: '',
+          itemValue: '',
+          weight: '',
           height: '',
           width: '',
-          length: ''
-        },
-        remarks: ''
-      },
-      couriers: [],
-      services: []  // Asumsikan services juga akan diambil dari API atau sudah ada data static
+          length: '',
+          remarks: ''
+        }
+      }
     };
   },
   created() {
     this.fetchCouriers();
+    this.fetchServices();
   },
   methods: {
     fetchCouriers() {
-      axios.get('http://localhost:8000/api/v1/couriers')
-        .then(response => {
-          this.couriers = response.data.data;  // Adjust according to the actual API response structure
-        })
-        .catch(error => {
-          console.error('Error fetching couriers:', error);
-        });
+      // Ganti dengan panggilan API yang sebenarnya
+      this.couriers = [
+        { id: 1, name: 'Kurir A' },
+        { id: 2, name: 'Kurir B' }
+      ];
+    },
+    fetchServices() {
+      // Ganti dengan panggilan API yang sebenarnya
+      this.services = [
+        { id: 1, nameServices: 'Layanan Standar' },
+        { id: 2, nameServices: 'Layanan Express' }
+      ];
     },
     submitPickupRequest() {
-      // Logic to submit the pickup request form
-      axios.post('http://localhost:8000/api/v1/senders/create-senders', this.pickupRequest)
-        .then(response => {
-          console.log('Pickup request submitted successfully:', response.data);
-        })
-        .catch(error => {
-          console.error('Error submitting pickup request:', error);
-        });
+      // Menangani pengiriman formulir
+      console.log('Permintaan Pengambilan:', this.pickupRequest);
+      // Anda bisa mengirimkan data ini ke server menggunakan panggilan API
     }
   }
 };
 </script>
 
 <style scoped>
-.container {
-  margin-top: 20px;
+.container{
+  margin-top: 100px;
 }
 
 .card-header {
@@ -267,11 +272,36 @@ export default {
   gap: 20px;
 }
 
-.form-section, .data-section {
-  flex: 1;
+.form-section, .guide-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.input-group-text {
+.card-header {
+  font-size: 1.2em;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+.card-body ul{
+  text-align: justify;
+}
+.input-group-prepend .input-group-text {
   background-color: #f8f9fa;
+}
+
+.btn-block {
+  margin-top: 20px;
+}
+
+.guide-section ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.guide-section p {
+  margin-top: 10px;
 }
 </style>

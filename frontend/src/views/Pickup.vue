@@ -14,21 +14,21 @@
                 <div class="card-header bg-secondary text-white">Detail Pengirim</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="senderName">Nama</label>
+                    <label for="name">Nama</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="senderName" v-model="pickupRequest.sender.name" required>
+                      <input type="text" class="form-control" id="name" v-model="pickupRequest.name" required>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="senderPhoneNumber">Nomor Telepon</label>
+                    <label for="phoneNumber">Nomor Telepon</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="senderPhoneNumber" v-model="pickupRequest.sender.phoneNumber" required>
+                      <input type="text" class="form-control" id="phoneNumber" v-model="pickupRequest.phoneNumber" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -37,7 +37,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="originCity" v-model="pickupRequest.sender.originCity" required>
+                      <input type="text" class="form-control" id="originCity" v-model="pickupRequest.originCity" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -46,7 +46,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="postCode" v-model="pickupRequest.sender.postCode" required>
+                      <input type="text" class="form-control" id="postCode" v-model="pickupRequest.postCode" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -55,7 +55,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                       </div>
-                      <textarea class="form-control" id="address" v-model="pickupRequest.sender.address" required></textarea>
+                      <textarea class="form-control" id="address" v-model="pickupRequest.address" required></textarea>
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,7 @@
                         <span class="input-group-text"><i class="fas fa-truck"></i></span>
                       </div>
                       <select class="form-control" id="courier" v-model="pickupRequest.courierId" required>
-                        <option v-for="courier in couriers" :key="courier.id" :value="courier.id">{{ courier.name }}</option>
+                        <option v-for="courier in couriers" :key="courier._id" :value="courier._id">{{ courier.shipment.courier.name }}</option>
                       </select>
                     </div>
                   </div>
@@ -84,12 +84,12 @@
                 <div class="card-header bg-secondary text-white">Pemilihan Layanan</div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="service">Pilih Layanan</label>
+                    <label for="serviceId">Pilih Layanan</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-concierge-bell"></i></span>
                       </div>
-                      <select class="form-control" id="service" v-model="pickupRequest.serviceId" required>
+                      <select class="form-control" id="serviceId" v-model="pickupRequest.serviceId" required>
                         <option v-for="service in services" :key="service.id" :value="service.id">{{ service.nameServices }}</option>
                       </select>
                     </div>
@@ -107,7 +107,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="packageType" v-model="pickupRequest.package.type" required>
+                      <input type="text" class="form-control" id="packageType" v-model="pickupRequest.packageType" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -116,7 +116,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-tag"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="itemName" v-model="pickupRequest.package.itemName" required>
+                      <input type="text" class="form-control" id="itemName" v-model="pickupRequest.itemName" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -125,7 +125,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-sort-amount-up"></i></span>
                       </div>
-                      <input type="number" class="form-control" id="quantity" v-model="pickupRequest.package.quantity" required>
+                      <input type="number" class="form-control" id="quantity" v-model="pickupRequest.quantity" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -134,7 +134,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                       </div>
-                      <input type="number" class="form-control" id="itemValue" v-model="pickupRequest.package.itemValue" required>
+                      <input type="number" class="form-control" id="itemValue" v-model="pickupRequest.itemValue" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -143,7 +143,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-weight"></i></span>
                       </div>
-                      <input type="number" class="form-control" id="weight" v-model="pickupRequest.package.weight" required>
+                      <input type="number" class="form-control" id="weight" v-model="pickupRequest.weight" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -153,19 +153,19 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">T</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Tinggi" v-model="pickupRequest.package.height" required>
+                        <input type="number" class="form-control" placeholder="Tinggi" v-model="pickupRequest.dimensions.height" required>
                       </div>
                       <div class="input-group mr-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text">L</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Lebar" v-model="pickupRequest.package.width" required>
+                        <input type="number" class="form-control" placeholder="Lebar" v-model="pickupRequest.dimensions.width" required>
                       </div>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">P</span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Panjang" v-model="pickupRequest.package.length" required>
+                        <input type="number" class="form-control" placeholder="Panjang" v-model="pickupRequest.dimensions.length" required>
                       </div>
                     </div>
                   </div>
@@ -175,36 +175,18 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-comment"></i></span>
                       </div>
-                      <textarea class="form-control" id="remarks" v-model="pickupRequest.package.remarks"></textarea>
+                      <textarea class="form-control" id="remarks" v-model="pickupRequest.remarks"></textarea>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block">Kirim Permintaan</button>
+              <button type="submit" class="btn btn-primary">Kirim Permintaan</button>
             </form>
           </div>
-
-          <!-- Sisi Kanan - Panduan -->
-          <div class="guide-section">
-            <div class="card mb-4">
-              <div class="card-header bg-info text-white">Panduan Mengisi Formulir</div>
-              <div class="card-body">
-                <ul>
-                  <li>Pastikan semua kolom diisi dengan benar.</li>
-                  <li>Sertakan detail pengirim yang akurat untuk proses yang lancar.</li>
-                  <li>Pilih kurir dan jenis layanan yang sesuai.</li>
-                  <li>Masukkan detail paket dengan hati-hati, terutama dimensi dan berat.</li>
-                  <li>Gunakan bagian catatan untuk instruksi khusus atau catatan tambahan.</li>
-                </ul>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header bg-info text-white">Informasi Tambahan</div>
-              <div class="card-body">
-                <p>Pastikan untuk memeriksa kembali detail sebelum mengirimkan formulir. Jika ada pertanyaan atau butuh bantuan, silakan hubungi tim dukungan kami.</p>
-              </div>
-            </div>
+          <!-- Sisi Kanan - Tampilan Data (Jika Ada) -->
+          <div class="data-section">
+            <!-- Bisa ditambahkan tampilan data jika diperlukan -->
           </div>
         </div>
       </div>
@@ -213,103 +195,83 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      couriers: [],
-      services: [],
       pickupRequest: {
-        sender: {
-          name: '',
-          phoneNumber: '',
-          originCity: '',
-          postCode: '',
-          address: ''
-        },
-        courierId: null,
-        serviceId: null,
-        package: {
-          type: '',
-          itemName: '',
-          quantity: '',
-          itemValue: '',
-          weight: '',
+        name: '',
+        phoneNumber: '',
+        originCity: '',
+        postCode: '',
+        address: '',
+        courierId: '',
+        serviceId: '',
+        packageType: '',
+        itemName: '',
+        quantity: '',
+        itemValue: '',
+        weight: '',
+        dimensions: {
           height: '',
           width: '',
-          length: '',
-          remarks: ''
-        }
-      }
+          length: ''
+        },
+        remarks: ''
+      },
+      couriers: [],
+      services: []  // Asumsikan services juga akan diambil dari API atau sudah ada data static
     };
   },
   created() {
     this.fetchCouriers();
-    this.fetchServices();
   },
   methods: {
     fetchCouriers() {
-      // Ganti dengan panggilan API yang sebenarnya
-      this.couriers = [
-        { id: 1, name: 'Kurir A' },
-        { id: 2, name: 'Kurir B' }
-      ];
-    },
-    fetchServices() {
-      // Ganti dengan panggilan API yang sebenarnya
-      this.services = [
-        { id: 1, nameServices: 'Layanan Standar' },
-        { id: 2, nameServices: 'Layanan Express' }
-      ];
+      axios.get('http://localhost:8000/api/v1/couriers')
+        .then(response => {
+          this.couriers = response.data.data;  // Adjust according to the actual API response structure
+        })
+        .catch(error => {
+          console.error('Error fetching couriers:', error);
+        });
     },
     submitPickupRequest() {
-      // Menangani pengiriman formulir
-      console.log('Permintaan Pengambilan:', this.pickupRequest);
-      // Anda bisa mengirimkan data ini ke server menggunakan panggilan API
+      // Logic to submit the pickup request form
+      axios.post('http://localhost:8000/api/v1/senders/create-senders', this.pickupRequest)
+        .then(response => {
+          console.log('Pickup request submitted successfully:', response.data);
+        })
+        .catch(error => {
+          console.error('Error submitting pickup request:', error);
+        });
     }
   }
 };
 </script>
 
 <style scoped>
-.container{
-  margin-top: 100px;
-}
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.form-section, .guide-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.card-header {
-  font-size: 1.2em;
-}
-
-.card {
-  margin-bottom: 20px;
-}
-.card-body ul{
-  text-align: justify;
-}
-.input-group-prepend .input-group-text {
-  background-color: #f8f9fa;
-}
-
-.btn-block {
+.container {
   margin-top: 20px;
 }
 
-.guide-section ul {
-  list-style-type: disc;
-  padding-left: 20px;
+.card-header {
+  background-color: #007bff;
+  color: white;
 }
 
-.guide-section p {
-  margin-top: 10px;
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-section, .data-section {
+  flex: 1;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
 }
 </style>

@@ -7,7 +7,7 @@
           <div class="card-body">
             <h5 class="card-title">Pick Up</h5>
             <p class="card-text">Kami akan mengambil paket dari lokasi Anda.</p>
-            <router-link to="/pickup" class="btn btn-primary">Pilih Pick Up</router-link>
+            <button @click="createShipment('PickUp')" class="btn btn-primary">Pilih Pick Up</button>
           </div>
         </div>
       </div>
@@ -16,15 +16,14 @@
           <div class="card-body">
             <h5 class="card-title">Drop Off</h5>
             <p class="card-text">Anda dapat mengirimkan paket ke drop point terdekat.</p>
-            <router-link to="/dropoff" class="btn btn-primary">Pilih Drop Off</router-link>
+            <button @click="createShipment('DropOff')" class="btn btn-primary">Pilih Drop Off</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="container" v-else>
-    <h1 class="mt-5 mb-3">Anda belum login</h1>
-    <router-link to="/login" class="btn btn-primary">Login</router-link>
+    <h1 class="mt-5 mb-3">Loading...</h1>
   </div>
 </template>
 
@@ -37,22 +36,21 @@ export default {
   data() {
     return {
       isAuthenticated: false,
+      user: null, // Tambahkan data pengguna ke state
+      shipmentId: null, // Tambahkan shipmentId ke state
     };
   },
   async created() {
     try {
-      // Mengambil token dari cookies
       const token = VueCookies.get('token');
-      console.log('Token from cookies:', token); 
-
       if (token) {
         const response = await axios.get('https://kirimkan-be.vercel.app/api/v1/users/authenticate', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log('API response:', response.data.data.user); 
-        this.isAuthenticated = response.data.status; 
+        this.isAuthenticated = response.data.status;
+        this.user = response.data.data.user; // Simpan data pengguna
       } else {
         this.isAuthenticated = false;
       }
@@ -61,6 +59,40 @@ export default {
       this.isAuthenticated = false;
     }
   },
+  methods: {
+    async createShipment(type) {
+      if (!this.user) {
+        console.error("User is not authenticated.");
+        return;
+      }
+
+      const shipmentData = {
+        userId: this.user._id,
+        noTrack: 'TRACK123456789', // Contoh nomor tracking, Anda mungkin ingin mengenerate ini secara dinamis
+        type: type,
+        status: 'In Progress', // Status yang sesuai
+      };
+
+      console.log("User ID:", this.user._id); // Log ID pengguna
+
+      try {
+        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/shipments/create-shipments', shipmentData);
+        console.log('Shipment created:', response.data);
+        
+        // Set shipmentId
+        this.shipmentId = response.data.data._id;
+
+        // Alihkan pengguna ke halaman /pickup atau /dropoff berdasarkan tipe
+        if (type === 'PickUp') {
+          this.$router.push(`/pickup/${this.shipmentId}`); // Menambahkan shipmentId ke URL
+        } else if (type === 'DropOff') {
+          this.$router.push(`/dropoff/${this.shipmentId}`); // Menambahkan shipmentId ke URL
+        }
+      } catch (error) {
+        console.error("Error creating shipment:", error);
+      }
+    }
+  }
 };
 </script>
 
@@ -68,10 +100,8 @@ export default {
 .container {
   margin-top: 100px;
   max-width: 800px;
-  /* margin: 40px auto; */
   margin-bottom: 30px;
   padding: 20px;
-
 }
 
 .card {

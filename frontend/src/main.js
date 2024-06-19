@@ -29,6 +29,7 @@ import Dashboard from './views/Dashboard.vue';
 import Userslist from './views/Userslist.vue';
 import Courierslist from './views/Courierslist.vue';
 import Serviceslist from './views/Serviceslist.vue';
+import Shipmentlist from './views/Shipmentlist.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -51,6 +52,7 @@ const routes = [
   { path: '/userslist', component:  Userslist},
   { path: '/courierslist', component: Courierslist},
   { path: '/serviceslist', component: Serviceslist},
+  { path: '/shipmentlist', component: Shipmentlist},
 ];
 
 const router = createRouter({

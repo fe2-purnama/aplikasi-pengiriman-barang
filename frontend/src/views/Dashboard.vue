@@ -33,6 +33,18 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Shipment</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Data Pengiriman</h6>
+            <!-- <button  class="btn btn-primary">Details</button> -->
+            <router-link to="/shipmentlist" class="btn btn-primary">Details</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

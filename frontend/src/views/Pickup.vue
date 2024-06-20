@@ -124,6 +124,7 @@
                 <button type="button" class="btn btn-primary btn-block" @click="updateService">Update Layanan</button>
               </div>
             </div>
+            </div>
           </div>
         </div>
 
@@ -287,7 +288,7 @@
   </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>

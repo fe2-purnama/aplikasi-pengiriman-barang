@@ -31,6 +31,7 @@ import Courierslist from './views/Courierslist.vue';
 import Serviceslist from './views/Serviceslist.vue';
 import Shipmentlist from './views/Shipmentlist.vue';
 import Historyorder from './views/Historyorder.vue';
+import Invoice from './views/Invoice.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -55,6 +56,7 @@ const routes = [
   { path: '/serviceslist', component: Serviceslist},
   { path: '/shipmentlist', component: Shipmentlist},
   { path: '/historyorder', component: Historyorder},
+  { path: '/invoice/:shipmentId', component: Invoice}
 ];
 
 const router = createRouter({

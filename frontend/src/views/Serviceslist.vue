@@ -7,7 +7,6 @@
           <th>Name</th>
           <th>Price</th>
           <th>Description</th>
-          <th>Shipment ID</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -16,7 +15,6 @@
           <td>{{ service.nameServices }}</td>
           <td>{{ service.price }}</td>
           <td>{{ service.description }}</td>
-          <td>{{ service.shipmentId }}</td>
           <td>
             <button class="btn btn-primary" @click="editService(index)">
               Edit
@@ -30,9 +28,9 @@
     </table>
 
     <div v-if="isAddCardVisible" class="card">
-      <div class="card-header">Add New Service</div>
+      <div class="card-header">{{ editingIndex === null ? 'Add New Service' : 'Edit Service' }}</div>
       <div class="card-body">
-        <form @submit.prevent="addService">
+        <form @submit.prevent="editingIndex === null ? addService() : saveService()">
           <div class="form-group">
             <label for="nameServices">Name</label>
             <input
@@ -46,7 +44,7 @@
           <div class="form-group">
             <label for="price">Price</label>
             <input
-              type="number"
+              type="text"
               v-model="newService.price"
               id="price"
               class="form-control"
@@ -63,7 +61,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="shipmentId">Shipment ID</label>
             <input
               type="text"
@@ -72,8 +70,8 @@
               class="form-control"
               required
             />
-          </div>
-          <button type="submit" class="btn btn-primary">Add Service</button>
+          </div> -->
+          <button type="submit" class="btn btn-primary">{{ editingIndex === null ? 'Add Service' : 'Save Service' }}</button>
           <button
             type="button"
             class="btn btn-secondary"
@@ -98,61 +96,82 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      services: [
-        {
-          nameServices: "Express Delivery",
-          price: 50.0,
-          description: "Fast and reliable delivery within 24 hours.",
-          shipmentId: "66687e834ef5de52723adb33",
-        },
-        // You can add more service data here
-      ],
+      services: [],
       newService: {
-        nameServices: "",
-        price: "",
-        description: "",
-        shipmentId: "",
+        nameServices: '',
+        price: '',
+        description: '',
+        shipmentId: ''
       },
       editingIndex: null,
       isAddCardVisible: false,
     };
   },
   methods: {
-    addService() {
-      this.services.push({ ...this.newService });
-      this.resetForm();
-      this.toggleAddCardVisibility();
+    async fetchService() {
+      try {
+        const response = await axios.get('https://kirimkan-be.vercel.app/api/v1/services');
+        this.services = response.data.data;
+        console.log(this.services);
+      } catch (error) {
+        console.error('Terjadi kesalahan saat mengambil data layanan:', error);
+      }
+    },
+    async addService() {
+      try {
+        const response = await axios.post('https://kirimkan-be.vercel.app/api/v1/services/create-service', this.newService);
+        this.services.push(response.data.data);
+        this.resetForm();
+        this.toggleAddCardVisibility();
+      } catch (error) {
+        console.error('Terjadi kesalahan saat menambahkan layanan:', error);
+      }
     },
     editService(index) {
       this.newService = { ...this.services[index] };
       this.editingIndex = index;
       this.isAddCardVisible = true;
     },
-    saveService() {
+    async saveService() {
       if (this.editingIndex !== null) {
-        this.services.splice(this.editingIndex, 1, { ...this.newService });
-        this.resetForm();
-        this.toggleAddCardVisibility();
+        try {
+          const response = await axios.put(`https://kirimkan-be.vercel.app/api/v1/services/${this.services[this.editingIndex]._id}`, this.newService);
+          this.services.splice(this.editingIndex, 1, response.data.data);
+          this.resetForm();
+          this.toggleAddCardVisibility();
+        } catch (error) {
+          console.error('Terjadi kesalahan saat mengupdate layanan:', error);
+        }
       }
     },
-    deleteService(index) {
-      this.services.splice(index, 1);
+    async deleteService(index) {
+      try {
+        await axios.delete(`https://kirimkan-be.vercel.app/api/v1/services/${this.services[index]._id}`);
+        this.services.splice(index, 1);
+      } catch (error) {
+        console.error('Terjadi kesalahan saat menghapus layanan:', error);
+      }
     },
     resetForm() {
       this.newService = {
-        nameServices: "",
-        price: "",
-        description: "",
-        shipmentId: "",
+        nameServices: '',
+        price: '',
+        description: '',
+        shipmentId: ''
       };
       this.editingIndex = null;
     },
     toggleAddCardVisibility() {
       this.isAddCardVisible = !this.isAddCardVisible;
     },
+  },
+  created() {
+    this.fetchService();
   },
 };
 </script>

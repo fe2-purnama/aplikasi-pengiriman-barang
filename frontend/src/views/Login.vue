@@ -42,9 +42,18 @@ export default {
 
         this.message = response.data.message;
         this.success = true;
-        this.$router.push('/').then(() => {
-          location.reload();
-        });
+
+        // Periksa peran pengguna
+        const userRole = response.data.data.user.role;
+        if (userRole === 'Admin') {
+          this.$router.push('/dashboard').then(() => {
+            location.reload();
+          });
+        } else {
+          this.$router.push('/').then(() => {
+            location.reload();
+          });
+        }
 
       } catch (error) {
         if (error.response && error.response.data) {

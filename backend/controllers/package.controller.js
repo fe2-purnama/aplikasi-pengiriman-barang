@@ -1,5 +1,5 @@
-const Package = require("../models/Package");
-const Shipment = require("../models/Shipment");
+const Package = require("../models/package");
+const Shipment = require("../models/shipment");
 
 const createPackage = async (req, res, next) => {
   try {
@@ -11,7 +11,6 @@ const createPackage = async (req, res, next) => {
       weight,
       height,
       width,
-      length,
       remarks,
       shipmentId,
     } = req.body;
@@ -44,7 +43,6 @@ const createPackage = async (req, res, next) => {
       weight,
       height,
       width,
-      length,
       remarks,
       shipmentId,
     });
@@ -106,7 +104,23 @@ const updatePackage = async (req, res, next) => {
   }
 };
 
+const getAllPackages = async (req, res, next) => {
+  try {
+    // Mengambil semua paket dari koleksi Package
+    const packages = await Package.find();
+
+    res.status(200).json({
+      status: true,
+      message: "Packages retrieved successfully",
+      data: packages,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createPackage,
   updatePackage,
+  getAllPackages
 };

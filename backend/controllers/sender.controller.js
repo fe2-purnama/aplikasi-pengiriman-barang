@@ -1,5 +1,5 @@
-const Sender = require("../models/Sender");
-const Shipment = require("../models/Shipment");
+const Sender = require("../models/sender");
+const Shipment = require("../models/shipment");
 
 const createSender = async (req, res, next) => {
   try {
@@ -88,7 +88,23 @@ const updateSender = async (req, res, next) => {
   }
 };
 
+const getAllSenders = async (req, res, next) => {
+  try {
+    // Mengambil semua pengirim dari koleksi Sender
+    const senders = await Sender.find();
+
+    res.status(200).json({
+      status: true,
+      message: "Senders retrieved successfully",
+      data: senders,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createSender,
   updateSender,
+  getAllSenders
 };

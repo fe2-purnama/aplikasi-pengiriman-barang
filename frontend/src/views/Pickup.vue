@@ -60,7 +60,7 @@
                 </div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="senderName">Nama</label>
+                    <label for="name">Nama</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"
@@ -77,7 +77,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="senderPhoneNumber">Nomor Telepon</label>
+                    <label for="phoneNumber">Nomor Telepon</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"
@@ -156,7 +156,7 @@
                 </div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="service">Pilih Layanan</label>
+                    <label for="serviceId">Pilih Layanan</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"
@@ -188,8 +188,6 @@
                   </button>
                 </div>
               </div>
-            </form>
-          </div>
 
           <!-- Detail Penerima -->
           <div class="card mt-4 mb-4">
@@ -449,9 +447,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
+      couriers: [],
       services: [],
       pickupRequest: {
         sender: {
@@ -484,9 +485,17 @@ export default {
     };
   },
   created() {
+    this.fetchCouriers();
     this.fetchServices();
   },
   methods: {
+    fetchCouriers() {
+      // Ganti dengan panggilan API yang sebenarnya
+      this.couriers = [
+        { id: 1, name: 'Kurir A' },
+        { id: 2, name: 'Kurir B' }
+      ];
+    },
     fetchServices() {
       fetch("https://kirimkan-be.vercel.app/api/v1/services")
         .then((response) => {
@@ -691,12 +700,18 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container{
   margin-top: 100px;
 }
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
 .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .form-section,
@@ -705,25 +720,30 @@ export default {
   padding: 20px;
   border-radius: 10px;
 }
+
 .card-header {
   font-size: 1.2em;
 }
+
 .card {
   margin-bottom: 20px;
 }
-.card-body ul {
+.card-body ul{
   text-align: justify;
 }
 .input-group-prepend .input-group-text {
   background-color: #f8f9fa;
 }
+
 .btn-block {
   /* margin-top: 20px; */
 }
+
 .guide-section ul {
   list-style-type: disc;
   padding-left: 20px;
 }
+
 .guide-section p {
   margin-top: 10px;
 }

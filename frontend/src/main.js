@@ -30,6 +30,7 @@ import Userslist from './views/Userslist.vue';
 import Courierslist from './views/Courierslist.vue';
 import Serviceslist from './views/Serviceslist.vue';
 import Shipmentlist from './views/Shipmentlist.vue';
+import Historyorder from './views/Historyorder.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -53,6 +54,7 @@ const routes = [
   { path: '/courierslist', component: Courierslist},
   { path: '/serviceslist', component: Serviceslist},
   { path: '/shipmentlist', component: Shipmentlist},
+  { path: '/historyorder', component: Historyorder},
 ];
 
 const router = createRouter({

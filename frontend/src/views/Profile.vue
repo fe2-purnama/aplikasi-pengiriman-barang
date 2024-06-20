@@ -85,11 +85,13 @@ export default {
       try {
         const token = VueCookies.get('token');
         if (token) {
-          const response = await axios.get('https://kirimkan-be.vercel.app/api/v1/users/authenticate', {
+          const response = await axios.get('https://kirimkan-be.vercel.app/api/v1/users/authenticate', 
+          {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
           });
+          console.log(response.data);
           const userData = response.data.data.user;
           this.profile.fullName = userData.userProfile.fullName;
           this.profile.email = userData.email;

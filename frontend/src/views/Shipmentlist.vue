@@ -8,6 +8,7 @@
           <th>Type</th>
           <th>Status</th>
           <th>Courier ID</th>
+          <th>Courier Name</th>
           <th>Service ID</th>
           <th>Actions</th>
         </tr>
@@ -18,6 +19,7 @@
           <td>{{ shipment.type }}</td>
           <td>{{ shipment.status }}</td>
           <td>{{ shipment.courierId }}</td>
+          <td>{{ shipment.name }}</td>
           <td>{{ shipment.serviceId }}</td>
           <td>
             <button class="btn btn-primary" @click="editShipment(index)">
@@ -128,6 +130,7 @@ export default {
         type: "",
         status: "",
         courierId: "",
+        name:"",
         serviceId: "",
       },
       editingIndex: null,
@@ -144,6 +147,7 @@ export default {
           "https://kirimkan-be.vercel.app/api/v1/shipments/"
         );
         this.shipments = response.data.data;
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching shipments:", error);
       }
@@ -198,6 +202,7 @@ export default {
         type: "",
         status: "",
         courierId: "",
+        name: "",
         serviceId: "",
       };
       this.editingIndex = null;
@@ -206,7 +211,7 @@ export default {
       this.isAddCardVisible = !this.isAddCardVisible;
     },
     reloadData() {
-      this.fetchShipments(); // Reload data from server
+      this.fetchShipments(); 
     },
   },
 };

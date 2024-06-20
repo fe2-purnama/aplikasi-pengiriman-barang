@@ -148,296 +148,304 @@
                   </button>
                 </div>
               </div>
-
-              <!-- Pemilihan Layanan -->
-              <div class="card mb-4">
-                <div class="card-header bg-secondary text-white">
-                  Pemilihan Layanan
-                </div>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="serviceId">Pilih Layanan</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fas fa-concierge-bell"></i
-                        ></span>
-                      </div>
-                      <select
-                        class="form-control"
-                        id="service"
-                        v-model="pickupRequest.serviceId"
-                      >
-                        <option
-                          v-for="service in services"
-                          :key="service.id"
-                          :value="service.id"
-                        >
-                          {{ service.nameServices }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- Tombol Update Layanan -->
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-block"
-                    @click="updateService"
-                  >
-                    Update Layanan
-                  </button>
-                </div>
+            </form>
+            <!-- Pemilihan Layanan -->
+            <div class="card mb-4">
+              <div class="card-header bg-secondary text-white">
+                Pemilihan Layanan
               </div>
-
-          <!-- Detail Penerima -->
-          <div class="card mt-4 mb-4">
-            <div class="card-header bg-secondary text-white">
-              Detail Penerima
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="senderName">Nama</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-user"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="senderName"
-                    v-model="pickupRequest.recipient.name"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="senderPhoneNumber">Nomor Telepon</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-phone"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="senderPhoneNumber"
-                    v-model="pickupRequest.recipient.phoneNumber"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="originCity">Kota</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-city"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="originCity"
-                    v-model="pickupRequest.recipient.destinationCity"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="postCode">Kode Pos</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-mail-bulk"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="postCode"
-                    v-model="pickupRequest.recipient.postCode"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="address">Alamat</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-map-marker-alt"></i
-                    ></span>
-                  </div>
-                  <textarea
-                    class="form-control"
-                    id="address"
-                    v-model="pickupRequest.recipient.address"
-                    required
-                  ></textarea>
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary btn-block" @click="submitRecipient">
-                Simpan</button>
-            </div>
-          </div>
-          <!-- Detail Paket -->
-          <div class="card mt-4 mb-4">
-            <div class="card-header bg-secondary text-white">Detail Paket</div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="packageType">Jenis Paket</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-box"></i
-                    ></span>
-                  </div>
-                  <select
-                class="form-control"
-                id="packageType"
-                v-model="pickupRequest.packageDetail.type"
-                required
-              >
-                <option value="Regular">Regular</option>
-                <option value="Cargo">Cargo</option>
-              </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="itemName">Nama Barang</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-tag"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="itemName"
-                    v-model="pickupRequest.packageDetail.itemName"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="quantity">Kuantitas</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-sort-amount-up"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="quantity"
-                    v-model="pickupRequest.packageDetail.quantity"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="itemValue">Nilai Barang</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-dollar-sign"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="itemValue"
-                    v-model="pickupRequest.packageDetail.itemValue"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="weight">Berat (kg)</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-weight"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="weight"
-                    v-model="pickupRequest.packageDetail.weight"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="dimensions">Dimensi (cm)</label>
-                <div class="d-flex">
-                  <div class="input-group mr-2">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">T</span>
-                    </div>
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="Tinggi"
-                      v-model="pickupRequest.packageDetail.height"
-                      required
-                    />
-                  </div>
-                  <div class="input-group mr-2">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">L</span>
-                    </div>
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="Lebar"
-                      v-model="pickupRequest.packageDetail.width"
-                      required
-                    />
-                  </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="serviceId">Pilih Layanan</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">P</span>
+                      <span class="input-group-text"
+                        ><i class="fas fa-concierge-bell"></i
+                      ></span>
+                    </div>
+                    <select
+                      class="form-control"
+                      id="service"
+                      v-model="pickupRequest.serviceId"
+                    >
+                      <option
+                        v-for="service in services"
+                        :key="service.id"
+                        :value="service.id"
+                      >
+                        {{ service.nameServices }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- Tombol Update Layanan -->
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  @click="updateService"
+                >
+                  Update Layanan
+                </button>
+              </div>
+            </div>
+
+            <!-- Detail Penerima -->
+            <div class="card mt-4 mb-4">
+              <div class="card-header bg-secondary text-white">
+                Detail Penerima
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="senderName">Nama</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-user"></i
+                      ></span>
                     </div>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
-                      placeholder="Panjang"
-                      v-model="pickupRequest.packageDetail.length"
+                      id="senderName"
+                      v-model="pickupRequest.recipient.name"
                       required
                     />
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="remarks">Catatan</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-comment"></i
-                    ></span>
+                <div class="form-group">
+                  <label for="senderPhoneNumber">Nomor Telepon</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-phone"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="senderPhoneNumber"
+                      v-model="pickupRequest.recipient.phoneNumber"
+                      required
+                    />
                   </div>
-                  <textarea
-                    class="form-control"
-                    id="remarks"
-                    v-model="pickupRequest.packageDetail.remarks"
-                  ></textarea>
                 </div>
+                <div class="form-group">
+                  <label for="originCity">Kota</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-city"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="originCity"
+                      v-model="pickupRequest.recipient.destinationCity"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="postCode">Kode Pos</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-mail-bulk"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="postCode"
+                      v-model="pickupRequest.recipient.postCode"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="address">Alamat</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-map-marker-alt"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      id="address"
+                      v-model="pickupRequest.recipient.address"
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  @click="submitRecipient"
+                >
+                  Simpan
+                </button>
               </div>
-              <!-- Tombol Update Layanan -->
-              <button
-                type="button"
-                class="btn btn-primary btn-block"
-                @click="submitPackageDetail"
-              >
-                Update Detail Paket
-              </button>
+            </div>
+            <!-- Detail Paket -->
+            <div class="card mt-4 mb-4">
+              <div class="card-header bg-secondary text-white">
+                Detail Paket
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="packageType">Jenis Paket</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-box"></i
+                      ></span>
+                    </div>
+                    <select
+                      class="form-control"
+                      id="packageType"
+                      v-model="pickupRequest.packageDetail.type"
+                      required
+                    >
+                      <option value="Regular">Regular</option>
+                      <option value="Cargo">Cargo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="itemName">Nama Barang</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-tag"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="itemName"
+                      v-model="pickupRequest.packageDetail.itemName"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Kuantitas</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-sort-amount-up"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="quantity"
+                      v-model="pickupRequest.packageDetail.quantity"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="itemValue">Nilai Barang</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-dollar-sign"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="itemValue"
+                      v-model="pickupRequest.packageDetail.itemValue"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="weight">Berat (kg)</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-weight"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="weight"
+                      v-model="pickupRequest.packageDetail.weight"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="dimensions">Dimensi (cm)</label>
+                  <div class="d-flex">
+                    <div class="input-group mr-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">T</span>
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Tinggi"
+                        v-model="pickupRequest.packageDetail.height"
+                        required
+                      />
+                    </div>
+                    <div class="input-group mr-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">L</span>
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Lebar"
+                        v-model="pickupRequest.packageDetail.width"
+                        required
+                      />
+                    </div>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">P</span>
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Panjang"
+                        v-model="pickupRequest.packageDetail.length"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="remarks">Catatan</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-comment"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      id="remarks"
+                      v-model="pickupRequest.packageDetail.remarks"
+                    ></textarea>
+                  </div>
+                </div>
+                <!-- Tombol Update Layanan -->
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  @click="submitPackageDetail"
+                >
+                  Update Detail Paket
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -447,7 +455,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -479,7 +487,7 @@ export default {
           phoneNumber: "",
           destinationCity: "",
           postCode: "",
-          address: ""
+          address: "",
         },
       },
     };
@@ -492,8 +500,8 @@ export default {
     fetchCouriers() {
       // Ganti dengan panggilan API yang sebenarnya
       this.couriers = [
-        { id: 1, name: 'Kurir A' },
-        { id: 2, name: 'Kurir B' }
+        { id: 1, name: "Kurir A" },
+        { id: 2, name: "Kurir B" },
       ];
     },
     fetchServices() {
@@ -653,14 +661,8 @@ export default {
       }
     },
     async submitRecipient() {
-      const {
-        name,
-        phoneNumber,
-        destinationCity,
-        postCode,
-        address
-
-      } = this.pickupRequest.recipient;
+      const { name, phoneNumber, destinationCity, postCode, address } =
+        this.pickupRequest.recipient;
       const shipmentId = this.$route.params.shipmentId; // Ambil shipmentId dari URL
       const url =
         "https://kirimkan-be.vercel.app/api/v1/recipients/create-recipients";
@@ -669,7 +671,7 @@ export default {
         phoneNumber,
         destinationCity,
         postCode,
-        address, 
+        address,
         shipmentId, // Sertakan shipmentId dalam payload
       };
 
@@ -694,13 +696,13 @@ export default {
         console.error("Error creating sender:", error);
         throw error; // Propagate the error to the calling function
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-.container{
+.container {
   margin-top: 100px;
 }
 
@@ -728,7 +730,7 @@ export default {
 .card {
   margin-bottom: 20px;
 }
-.card-body ul{
+.card-body ul {
   text-align: justify;
 }
 .input-group-prepend .input-group-text {

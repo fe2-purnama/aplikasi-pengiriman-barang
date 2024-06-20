@@ -56,7 +56,7 @@ const routes = [
   { path: '/serviceslist', component: Serviceslist},
   { path: '/shipmentlist', component: Shipmentlist},
   { path: '/historyorder', component: Historyorder},
-  { path: '/invoice', component: Invoice}
+  { path: '/invoice/:shipmentId', component: Invoice}
 ];
 
 const router = createRouter({

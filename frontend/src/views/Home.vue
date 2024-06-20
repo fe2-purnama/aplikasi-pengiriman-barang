@@ -13,30 +13,8 @@
           <div class="trace-track-container">
             <label for="check-in">Trace & Track</label>
             <div class="input-wrapper">
-              <input type="text" id="check-in" placeholder="" />
-              <button type="button" class="btn small-btn">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="input__group">
-          <div class="trace-track-container">
-            <label for="check-out">Biaya Kirim</label>
-            <div class="input-wrapper">
-              <input type="text" placeholder="" />
-              <button type="button" class="btn small-btn">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="input__group">
-          <div class="trace-track-container">
-            <label for="guest">Temukan Drop Point</label>
-            <div class="input-wrapper">
-              <input type="text" placeholder="" />
-              <button type="button" class="btn small-btn">
+              <input type="text" id="trackingNumber" class="form-control" v-model="trackingNumber"/>
+              <button @click="trackPackages" type="button" class="btn small-btn">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -152,6 +130,45 @@
       </div>
     </section>
 
+          <!-- Bagian untuk menampilkan hasil pelacakan -->
+          <div class="col-6">
+        <div class="card" v-if="trackingResult">
+          <div class="card-header">Hasil Pelacakan</div>
+          <div class="card-body">
+            <p>
+              <strong>Nomor Pelacakan:</strong>
+              {{ trackingResult.shipment?._id || 'N/A' }}
+            </p>
+            <p><strong>Status:</strong> {{ trackingResult.shipment?.status || 'N/A' }}</p>
+            <p>
+              <strong>Estimasi Pengiriman:</strong>
+              {{ trackingResult.deliveryEstimate || 'N/A' }}
+            </p>
+            <!-- Informasi pelacakan lainnya -->
+            <p><strong>Detail:</strong> {{ trackingResult.shipment?.type || 'N/A' }}</p>
+            <p>
+              <strong>Kurir:</strong>
+              {{ trackingResult.shipment?.courier?.name || 'N/A' }}
+            </p>
+            <p>
+              <strong>Nomor Kurir:</strong>
+              {{ trackingResult.shipment?.courier?.phoneNumber || 'N/A' }}
+            </p>
+            <p>
+              <strong>Biaya:</strong>
+              {{ trackingResult.shipment?.payments?.[0]?.amount || 'N/A' }}
+            </p>
+            <p>
+              <strong>Metode Pembayaran:</strong>
+              {{ trackingResult.shipment?.payments?.[0]?.payment_method || 'N/A' }}
+            </p>
+          </div>
+        </div>
+        <div class="no-result" v-else>
+          <p>Silakan masukkan nomor pelacakan untuk melacak paket Anda.</p>
+        </div>
+      </div>
+
     <!-- <section class="service" id="service">
       <div class="section__container service__container">
         <div class="service__content">
@@ -211,6 +228,33 @@
 </template>
 
 <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: "Tracetrack",
+  data() {
+    return {
+      trackingNumber: "",
+      trackingResult: null,
+    };
+  },
+  methods: {
+    async trackPackage() {
+      try {
+        const response = await axios.get(`https://kirimkan-be.vercel.app/api/v1/shipments/${this.trackingNumber}`);
+        console.log('Response data:', response.data); // Tambahkan console.log untuk melihat data
+        this.trackingResult = response.data.data;
+      } catch (error) {
+        console.error("Error fetching tracking data:", error);
+        alert("Nomor pelacakan tidak ditemukan atau terjadi kesalahan pada server.");
+        this.trackingResult = null;
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");

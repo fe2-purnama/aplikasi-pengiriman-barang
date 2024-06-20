@@ -280,11 +280,11 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12">
-            <router-link to="/invoice" class="btn btn-success btn-block">Lihat Invoice</router-link>
-          </div>
-        </div>
+         <div class="row">
+    <div class="col-12">
+      <router-link :to="`/invoice/${shipmentId}`" class="btn btn-success btn-block">Lihat Invoice</router-link>
+    </div>
+  </div>
       </div>
     </div>
   </div>
@@ -316,7 +316,6 @@ export default {
           height: "",
           width: "",
           remarks: "",
-          // shipmentId: ''
         },
         recipient: {
           name: "",
@@ -326,11 +325,13 @@ export default {
           address: "",
         },
       },
+      shipmentId: "", // Menambahkan variabel shipmentId
     };
   },
   created() {
     this.fetchCouriers();
     this.fetchServices();
+    this.fetchShipmentId(); // Panggil fungsi untuk mendapatkan shipmentId
   },
   methods: {
     fetchCouriers() {
@@ -366,6 +367,10 @@ export default {
           this.services = [];
         });
     },
+    fetchShipmentId() {
+      // Fungsi untuk mendapatkan shipmentId dari URL
+      this.shipmentId = this.$route.params.shipmentId;
+    },
     submitPickupRequest() {
       // Simpan detail pengirim terlebih dahulu
       this.createSender()
@@ -383,7 +388,7 @@ export default {
     createSender() {
       const { name, phoneNumber, originCity, postCode, address } =
         this.pickupRequest.sender;
-      const shipmentId = this.$route.params.shipmentId; // Ambil shipmentId dari URL
+      const shipmentId = this.shipmentId; // Ambil shipmentId dari variabel
       const url =
         "https://kirimkan-be.vercel.app/api/v1/senders/create-senders";
       const payload = {
@@ -420,7 +425,7 @@ export default {
         });
     },
     updateService() {
-      const shipmentId = this.$route.params.shipmentId; // Ambil shipmentId dari URL
+      const shipmentId = this.shipmentId; // Ambil shipmentId dari variabel
       const url = `https://kirimkan-be.vercel.app/api/v1/shipments/${shipmentId}`;
       const payload = {
         serviceId: this.pickupRequest.serviceId,
@@ -461,7 +466,7 @@ export default {
         width,
         remarks,
       } = this.pickupRequest.packageDetail;
-      const shipmentId = this.$route.params.shipmentId; // Ambil shipmentId dari URL
+      const shipmentId = this.shipmentId; // Ambil shipmentId dari variabel
       const url =
         "https://kirimkan-be.vercel.app/api/v1/packages/create-packages";
       const payload = {
@@ -499,7 +504,7 @@ export default {
     async submitRecipient() {
       const { name, phoneNumber, destinationCity, postCode, address } =
         this.pickupRequest.recipient;
-      const shipmentId = this.$route.params.shipmentId; // Ambil shipmentId dari URL
+      const shipmentId = this.shipmentId; // Ambil shipmentId dari variabel
       const url =
         "https://kirimkan-be.vercel.app/api/v1/recipients/create-recipients";
       const payload = {

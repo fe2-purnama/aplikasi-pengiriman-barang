@@ -11,7 +11,9 @@
     </button>
 
     <!-- Brand -->
-    <router-link to="/" class="navbar-brand text-white">Brand</router-link>
+    <router-link to="/" class="navbar-brand">
+      <img src="/public/logo putih .png" alt="Company Logo" class="logo" />
+    </router-link>
 
     <!-- Toggler/collapsibe Button -->
     <button
@@ -205,6 +207,12 @@ nav {
 
 .navbar-toggler {
   border-color: rgba(255, 255, 255, 0.5);
+}
+
+.logo {
+  height: 185px; 
+  margin: 0; 
+  padding: 0; 
 }
 
 @media (max-width: 768px) {

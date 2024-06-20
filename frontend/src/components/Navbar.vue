@@ -104,14 +104,13 @@
 
       <!-- Right side links -->
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+   
+        <template v-if="isLoggedIn">
+          <li class="nav-item">
           <router-link to="/historyorder" class="nav-link text-white"
             >History Order</router-link
           >
         </li>
-
-        <!-- Conditional display based on token -->
-        <template v-if="isLoggedIn">
           <!-- Nav Item - My Profile -->
           <li class="nav-item">
             <router-link to="/profile" class="nav-link text-white"

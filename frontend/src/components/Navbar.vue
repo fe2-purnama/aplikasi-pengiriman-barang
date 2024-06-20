@@ -180,7 +180,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #ffa500 !important;
+  background-color: #DE9727 !important;
 }
 
 .navbar-brand,
@@ -195,14 +195,14 @@ nav {
 }
 
 .dropdown-menu {
-  background-color: #ffa500 !important; /* Warna oranye */
+  background-color: #DE9727 !important; /* Warna oranye */
   border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Menambahkan shadow untuk dropdown */
 }
 
 .dropdown-item {
   color: #ffffff !important;
-  background-color: #ffa500 !important;
+  background-color: #DE9727 !important;
 }
 
 .navbar-toggler {

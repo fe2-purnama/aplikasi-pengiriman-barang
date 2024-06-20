@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="homepadding">
     <div class="homepage-image-container">
       <img
-        src="/public/homepage.jpeg"
+        src="/public/heroimg.jpg"
         alt="Homepage Image"
         class="homepage-image"
       />
     </div>
-    <section class="section__container booking__container">
+    <!-- <section class="section__container booking__container">
       <form action="/" class="booking__form">
         <div class="input__group">
           <div class="trace-track-container">
@@ -15,13 +15,41 @@
               Order
             </button>
           </div>
+          <div class="trace-track-container py-3 px-3">
+            <button @click="goToOrderPage" type="button" class="btn small-btn">
+              Search
+            </button>
+          </div>
         </div>
         
       </form>
+    </section> -->
+
+    <section class="section__container about__container ordersearch sectionutama" id="about">
+      <div class="about__content">
+        <!-- <p class="section__subheader">ORDER OR SEARCH</p> -->
+        <h2 class="section__header">
+          LAYANAN UTAMA
+        </h2>
+        <p class="section__description">
+          Kami menawarkan layanan pick up dan drop off, serta tracking barang real-time untuk pengiriman yang cepat, aman, dan transparan.
+        </p>
+        <div class="about__btn btnutama">
+          <router-link to="/order" class="btn btn-continue"
+            >Order</router-link
+          >
+          <router-link to="/tracetrack" class="btn btn-continue"
+            >Tracking</router-link
+          >
+        </div>
+      </div>
+      <!-- <div class="about__image">
+        <img src="/public/kurir.jpeg" alt="about" />
+      </div> -->
     </section>
 
-    <section class="section__container about__container" id="about">
-      <div class="about__image">
+    <section class="section__container about__container" id="about" style="background-color: #D9D9D9;">
+      <div class="about__image py-3">
         <img src="/public/kurir.jpeg" alt="about" />
       </div>
       <div class="about__content">
@@ -289,7 +317,6 @@ export default {
 }
 
 .button__section {
-  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
@@ -300,7 +327,7 @@ export default {
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 20px 70px;
   font-size: 16px;
   cursor: pointer;
 }
@@ -774,6 +801,10 @@ nav {
   border: 1px solid var(--primary-color);
 }
 
+.sectionutama {
+  margin-bottom: 100px;
+}
+
 .explore__content .btn:hover {
   color: var(--white);
   background-color: var(--primary-color);
@@ -867,6 +898,9 @@ nav {
     display: none;
   }
 
+  .homepadding {
+    padding-top: 70px;
+  }
   .nav__links {
     padding: 0;
     width: unset;
@@ -907,6 +941,18 @@ nav {
 
   .service__content {
     grid-column: 2/3;
+  }
+
+  .ordersearch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .btnutama {
+    display: flex;
+    justify-content: space-between;
   }
 
   .footer__container {

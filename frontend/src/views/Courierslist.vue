@@ -134,7 +134,6 @@ export default {
         console.log(response.data.data);
         this.couriers = []; // Clear the current couriers array
 
-        // Manually push each courier to the couriers array
         for (let i = 0; i < couriersData.length; i++) {
           const courier = couriersData[i];
           this.couriers.push({
@@ -190,11 +189,10 @@ export default {
     },
     async editCourier(index) {
       if (!this.isAddCardVisible) {
-        // Check if the add card is not visible
         const courierToEdit = this.couriers[index];
         this.newCourier = { ...courierToEdit };
         this.editingIndex = index;
-        this.isAddCardVisible = true; // Show the card for editing
+        this.isAddCardVisible = true; 
       }
     },
     resetForm() {

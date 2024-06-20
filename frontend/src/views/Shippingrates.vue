@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "ShippingRates",
   data() {
@@ -71,22 +69,12 @@ export default {
     };
   },
   methods: {
-    async calculateShipping() {
-      try {
-        const response = await axios.post(
-          "https://kirimkan-be.vercel.app/api/v1/rajaongkir",
-          {
-            origin: this.origin,
-            destination: this.destination,
-            weight: this.weight,
-            courier: "jne",
-          }
-        );
-        this.shippingCost = response.data.costs[0].service;
-      } catch (error) {
-        console.error("Terjadi kesalahan saat menghitung tarif pengiriman:", error);
-        this.shippingCost = "Terjadi kesalahan saat menghitung tarif pengiriman.";
-      }
+    calculateShipping() {
+      // Simulasi perhitungan tarif pengiriman
+      const distance = 100; // Jarak simulasi dalam km
+      const ratePerKg = 5000; // Tarif per kg simulasi
+      const totalCost = this.weight * ratePerKg * (distance / 100); // Hitung total tarif
+      this.shippingCost = `Rp ${totalCost.toLocaleString()}`; // Format hasil tarif
     },
   },
 };

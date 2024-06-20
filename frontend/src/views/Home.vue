@@ -1,24 +1,26 @@
 <template>
   <div>
-    <div class="homepage-image-container">
-      <img
-        src="/public/homepage.jpeg"
-        alt="Homepage Image"
-        class="homepage-image"
-      />
-    </div>
-    <section class="section__container booking__container">
-      <form action="/" class="booking__form">
-        <div class="input__group">
-          <div class="trace-track-container">
-            <button @click="goToOrderPage" type="button" class="btn small-btn">
+    <div class="homepage-container">
+      <div class="homepage-image-container">
+        <img
+          src="/public/homepage.jpeg"
+          alt="Homepage Image"
+          class="homepage-image"
+        />
+        <!-- Section untuk Order dan Search Trace and Track -->
+        <section class="section__container button__section">
+          <div class="button__group">
+            <button @click="goToOrderPage" type="button" class="btn btn-primary">
               Order
             </button>
+            <button @click="goToSearchPage" type="button" class="btn btn-secondary">
+              Search
+            </button>
           </div>
-        </div>
-        
-      </form>
-    </section>
+        </section>
+      </div>
+    </div>
+
 
     <section class="section__container about__container" id="about">
       <div class="about__image">
@@ -171,7 +173,24 @@ export default {
 .section__container {
   max-width: var(--max-width);
   margin: auto;
-  padding: 5rem 1rem;
+  padding: 1rem;
+}
+
+.button__section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.button__group {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .section__subheader {

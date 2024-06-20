@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <div class="card">
-      <h1>Syarat dan Ketentuan</h1>
+    <!-- Button to trigger the modal -->
+    <button @click="showModal = true" class="btn btn-primary">Buka Modal Syarat dan Ketentuan</button>
+
+    <!-- Modal component -->
+    <b-modal v-model="showModal" title="Syarat dan Ketentuan">
       <div class="term-content">
         <h3>1. Pengantar</h3>
         <p>
@@ -35,13 +38,22 @@
           memahami versi yang terbaru.
         </p>
       </div>
-    </div>
+      <!-- Footer with close button -->
+      <template #modal-footer>
+        <button type="button" class="btn btn-secondary" @click="showModal = false">Tutup</button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
 <script>
+// Tidak ada logika JavaScript yang diperlukan untuk contoh ini
 export default {
-  // Tidak ada logika JavaScript yang diperlukan untuk contoh ini
+  data() {
+    return {
+      showModal: true // Properti untuk mengendalikan tampilan modal
+    };
+  }
 };
 </script>
 

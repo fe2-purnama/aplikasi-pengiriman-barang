@@ -14,7 +14,7 @@
             <label for="check-in">Trace & Track</label>
             <div class="input-wrapper">
               <input type="text" id="trackingNumber" class="form-control" v-model="trackingNumber"/>
-              <button @click="trackPackages" type="button" class="btn small-btn">
+              <button @click="trackPackage" type="button" class="btn small-btn">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -130,44 +130,44 @@
       </div>
     </section>
 
-          <!-- Bagian untuk menampilkan hasil pelacakan -->
-          <div class="col-6">
-        <div class="card" v-if="trackingResult">
-          <div class="card-header">Hasil Pelacakan</div>
-          <div class="card-body">
-            <p>
-              <strong>Nomor Pelacakan:</strong>
-              {{ trackingResult.shipment?._id || 'N/A' }}
-            </p>
-            <p><strong>Status:</strong> {{ trackingResult.shipment?.status || 'N/A' }}</p>
-            <p>
-              <strong>Estimasi Pengiriman:</strong>
-              {{ trackingResult.deliveryEstimate || 'N/A' }}
-            </p>
-            <!-- Informasi pelacakan lainnya -->
-            <p><strong>Detail:</strong> {{ trackingResult.shipment?.type || 'N/A' }}</p>
-            <p>
-              <strong>Kurir:</strong>
-              {{ trackingResult.shipment?.courier?.name || 'N/A' }}
-            </p>
-            <p>
-              <strong>Nomor Kurir:</strong>
-              {{ trackingResult.shipment?.courier?.phoneNumber || 'N/A' }}
-            </p>
-            <p>
-              <strong>Biaya:</strong>
-              {{ trackingResult.shipment?.payments?.[0]?.amount || 'N/A' }}
-            </p>
-            <p>
-              <strong>Metode Pembayaran:</strong>
-              {{ trackingResult.shipment?.payments?.[0]?.payment_method || 'N/A' }}
-            </p>
-          </div>
-        </div>
-        <div class="no-result" v-else>
-          <p>Silakan masukkan nomor pelacakan untuk melacak paket Anda.</p>
+ <!-- Bagian untuk menampilkan hasil pelacakan -->
+ <div class="col-6">
+      <div class="card" v-if="trackingResult">
+        <div class="card-header">Hasil Pelacakan</div>
+        <div class="card-body">
+          <p>
+            <strong>Nomor Pelacakan:</strong>
+            {{ trackingResult.shipment?._id || 'N/A' }}
+          </p>
+          <p><strong>Status:</strong> {{ trackingResult.shipment?.status || 'N/A' }}</p>
+          <p>
+            <strong>Estimasi Pengiriman:</strong>
+            {{ trackingResult.deliveryEstimate || 'N/A' }}
+          </p>
+          <!-- Informasi pelacakan lainnya -->
+          <p><strong>Detail:</strong> {{ trackingResult.shipment?.type || 'N/A' }}</p>
+          <p>
+            <strong>Kurir:</strong>
+            {{ trackingResult.shipment?.courier?.name || 'N/A' }}
+          </p>
+          <p>
+            <strong>Nomor Kurir:</strong>
+            {{ trackingResult.shipment?.courier?.phoneNumber || 'N/A' }}
+          </p>
+          <p>
+            <strong>Biaya:</strong>
+            {{ trackingResult.shipment?.payments?.[0]?.amount || 'N/A' }}
+          </p>
+          <p>
+            <strong>Metode Pembayaran:</strong>
+            {{ trackingResult.shipment?.payments?.[0]?.payment_method || 'N/A' }}
+          </p>
         </div>
       </div>
+      <div class="no-result" v-else>
+        <p>Silakan masukkan nomor pelacakan untuk melacak paket Anda.</p>
+      </div>
+    </div>
 
     <!-- <section class="service" id="service">
       <div class="section__container service__container">
@@ -254,6 +254,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
@@ -498,7 +499,8 @@ nav {
 .input__group input {
   display: block;
   width: 100%;
-  max-width: 150px;
+  width: 300px;
+  /* max-width: 150px; */
   padding-block: 5px;
   color: var(--text-dark);
   font-size: 0.9rem;

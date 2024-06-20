@@ -19,7 +19,7 @@
           <td>{{ shipment.type }}</td>
           <td>{{ shipment.status }}</td>
           <td>{{ shipment.courierId }}</td>
-          <td>{{ shipment.name }}</td>
+          <td>{{ shipment.courierName }}</td>
           <td>{{ shipment.serviceId }}</td>
           <td>
             <button class="btn btn-primary" @click="editShipment(index)">
@@ -40,7 +40,9 @@
       <div class="card-header">Add New Shipment</div>
       <div class="card-body">
         <form
-          @submit.prevent="editingIndex === null ? addShipment() : saveShipment()"
+          @submit.prevent="
+            editingIndex === null ? addShipment() : saveShipment()
+          "
         >
           <div class="form-group">
             <label for="noTrack">Tracking Number</label>
@@ -130,7 +132,7 @@ export default {
         type: "",
         status: "",
         courierId: "",
-        name:"",
+        name: "",
         serviceId: "",
       },
       editingIndex: null,
@@ -147,7 +149,10 @@ export default {
           "https://kirimkan-be.vercel.app/api/v1/shipments/"
         );
         this.shipments = response.data.data;
-        console.log(response.data.data);
+        console.log(response.data.data[0].courier.name);
+        this.shipments.forEach((shipment) => {
+          shipment.courierName = shipment.courier.name;
+        });
       } catch (error) {
         console.error("Error fetching shipments:", error);
       }
@@ -170,10 +175,16 @@ export default {
       if (this.editingIndex !== null) {
         try {
           const response = await axios.put(
-            `https://kirimkan-be.vercel.app/api/v1/shipments/${this.shipments[this.editingIndex]._id}`,
+            `https://kirimkan-be.vercel.app/api/v1/shipments/${
+              this.shipments[this.editingIndex]._id
+            }`,
             this.newShipment
           );
-          this.shipments.splice(this.editingIndex, 1, response.data.data.shipment);
+          this.shipments.splice(
+            this.editingIndex,
+            1,
+            response.data.data.shipment
+          );
           this.resetForm();
           this.toggleAddCardVisibility();
           this.reloadData();
@@ -184,7 +195,9 @@ export default {
     },
     async deleteShipment(id, index) {
       try {
-        await axios.delete(`https://kirimkan-be.vercel.app/api/v1/shipments/${id}`);
+        await axios.delete(
+          `https://kirimkan-be.vercel.app/api/v1/shipments/${id}`
+        );
         this.shipments.splice(index, 1);
         this.reloadData(); // Reload data after deleting shipment
       } catch (error) {
@@ -211,7 +224,7 @@ export default {
       this.isAddCardVisible = !this.isAddCardVisible;
     },
     reloadData() {
-      this.fetchShipments(); 
+      this.fetchShipments();
     },
   },
 };

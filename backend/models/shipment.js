@@ -13,7 +13,8 @@ const shipmentSchema = new Schema({
   status: { 
     type: String, 
     required: true, 
-    default: 'In Progress'
+    default: 'In Progress',
+    trim: true
   },
   courierId: { type: Schema.Types.ObjectId, ref: 'Courier' },
   serviceId: { type: Schema.Types.ObjectId, ref: 'Service' },

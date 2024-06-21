@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User"); // Sesuaikan path ke model User Mongoose Anda
+const User = require("../models/user"); // Sesuaikan path ke model User Mongoose Anda
 const { JWT_SECRET_KEY } = process.env;
 
 module.exports = async function (req, res, next) {
@@ -26,17 +26,17 @@ module.exports = async function (req, res, next) {
 
     const payload = jwt.verify(token, JWT_SECRET_KEY);
 
-    // const user = await User.findById(payload.id);
-    // if (!user) {
-    //   return res.status(401).json({
-    //     status: false,
-    //     message: "Tidak terautentikasi",
-    //     err: "Email tidak terdaftar",
-    //     data: null,
-    //   });
-    // }
+    const user = await User.findById(payload.id);
+    if (!user) {
+      return res.status(401).json({
+        status: false,
+        message: "Tidak terautentikasi",
+        err: "Email tidak terdaftar",
+        data: null,
+      });
+    }
 
-    // req.user = user;
+    req.user = user;
 
     // if (!req.user.isVerified) {
     //   return res.status(401).json({

@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { generatedOTP } = require("../utils/otpGenerator");
 const nodemailer = require("../utils/nodemailer");
-const User = require("../models/User");
-const UserProfile = require("../models/UserProfile");
+const User = require("../models/user");
+const UserProfile = require("../models/userprofile");
 
 const { JWT_SECRET_KEY } = process.env;
 
@@ -382,41 +382,49 @@ const verifyOtp = async (req, res, next) => {
   // };
 
   const authenticateUser = async (req, res, next) => {
-    try {
-      const userId = req.user.id;
-  
-      const userWithProfile = await User.aggregate([
-        { $match: { _id: new mongoose.Types.ObjectId(userId) } },
-        {
-          $lookup: {
-            from: "userprofiles",
-            localField: "_id",
-            foreignField: "userId",
-            as: "userProfile"
-          }
-        },
-        { $unwind: { path: "$userProfile", preserveNullAndEmptyArrays: true } },
-      ]);
-  
-      if (userWithProfile.length === 0) {
-        return res.status(404).json({
-          status: false,
-          message: "User not found",
-          data: null,
-        });
-      }
-  
-      const user = userWithProfile[0];
-  
-      return res.status(200).json({
-        status: true,
-        message: "Authentication successful",
-        data: { user },
+  try {
+    const userId = req.user.id;
+
+    const userWithProfileAndShipments = await User.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+      {
+        $lookup: {
+          from: "userprofiles",
+          localField: "_id",
+          foreignField: "userId",
+          as: "userProfile"
+        }
+      },
+      { $unwind: { path: "$userProfile", preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: "shipments", // Ganti dengan nama koleksi yang sesuai
+          localField: "_id",
+          foreignField: "userId",
+          as: "shipments"
+        }
+      },
+    ]);
+
+    if (userWithProfileAndShipments.length === 0) {
+      return res.status(404).json({
+        status: false,
+        message: "User not found",
+        data: null,
       });
-    } catch (err) {
-      next(err);
     }
-  };
+
+    const user = userWithProfileAndShipments[0];
+
+    return res.status(200).json({
+      status: true,
+      message: "Authentication successful",
+      data: { user },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
   
   const getAllUsers = async (req, res, next) => {
     try {
@@ -517,6 +525,36 @@ const verifyOtp = async (req, res, next) => {
   //   }
   // };
 
+  const deleteUserById = async (req, res, next) => {
+    try {
+      const userId = req.params.id;
+  
+      // Check if the user exists
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({
+          status: false,
+          message: "User not found",
+          data: null,
+        });
+      }
+  
+      // Delete user profile
+      await UserProfile.findOneAndDelete({ userId });
+  
+      // Delete user
+      await User.findByIdAndDelete(userId);
+  
+      res.status(200).json({
+        status: true,
+        message: "User deleted successfully",
+        data: null,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
 module.exports = {
     register,
     registerNoVerify,
@@ -525,4 +563,5 @@ module.exports = {
     authenticateUser,
     getAllUsers,
     getUserById,
+    deleteUserById
   };

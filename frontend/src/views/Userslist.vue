@@ -206,11 +206,9 @@ export default {
 
       try {
         const response = await axios.delete(
-          `http://localhost:8000/api/v1/users/${userId}`
+          `https://kirimkan-be.vercel.app/api/v1/users/${userId}`
         );
         console.log("User deleted:", response.data);
-
-        // Hapus pengguna dari array lokal setelah berhasil dihapus dari server
         this.users.splice(index, 1);
       } catch (error) {
         console.error("Error deleting user:", error);

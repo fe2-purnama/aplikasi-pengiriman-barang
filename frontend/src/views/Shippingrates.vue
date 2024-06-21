@@ -32,7 +32,7 @@
                 type="number"
                 id="weight"
                 class="form-control"
-                v-model="weight"
+                v-model.number="weight"
               />
             </div>
             <button @click="calculateShipping" class="btn btn-primary">
@@ -43,13 +43,26 @@
       </div>
       <div class="col-6">
         <!-- Hasil perhitungan tarif pengiriman -->
-        <div class="card mt-3" v-if="shippingCost">
+        <div class="card mt-3" v-if="shippingCost.city_name && shippingCost.destination_details.city_name">
           <div class="card-body">
             <h5 class="card-title">Hasil Perhitungan</h5>
-            <p><strong>Kota Asal:</strong> {{ origin }}</p>
-            <p><strong>Kota Tujuan:</strong> {{ destination }}</p>
+            <p><strong>Kota Asal:</strong> {{ shippingCost.origin_details.city_name }}</p>
+            <p><strong>Kota Tujuan:</strong> {{ shippingCost.destination_details.city_name }}</p>
             <p><strong>Berat Barang:</strong> {{ weight }} kg</p>
-            <p><strong>Tarif Pengiriman:</strong> {{ shippingCost }}</p>
+            <p><strong>Tarif Pengiriman:</strong> Rp {{ shippingCost.results[0].costs[0].value.toLocaleString() }}</p>
+
+            <!-- Menampilkan data hasil perhitungan -->
+            <div v-if="shippingCost.results.length > 0">
+              <h6>Data Hasil Perhitungan</h6>
+              <ul>
+                <li v-for="result in shippingCost.results" :key="result.code">
+                  <p><strong>Layanan:</strong> {{ result.service }}</p>
+                  <p><strong>Deskripsi:</strong> {{ result.description }}</p>
+                  <p><strong>Biaya:</strong> Rp {{ result.costs[0].value.toLocaleString() }}</p>
+                  <p><strong>Estimasi Pengiriman:</strong> {{ result.costs[0].etd }} hari</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -58,6 +71,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ShippingRates",
   data() {
@@ -65,16 +80,47 @@ export default {
       origin: "",
       destination: "",
       weight: 0,
-      shippingCost: null,
+      courier: "jne",
+      shippingCost: {
+        city_name: "",
+        origin_details: {
+          city_name: "",
+        },
+        destination_details: {
+          city_name: "",
+        },
+        results: [
+          {
+            costs: [
+              {
+                value: 0,
+              },
+            ],
+          },
+        ],
+      },
     };
   },
   methods: {
-    calculateShipping() {
-      // Simulasi perhitungan tarif pengiriman
-      const distance = 100; // Jarak simulasi dalam km
-      const ratePerKg = 5000; // Tarif per kg simulasi
-      const totalCost = this.weight * ratePerKg * (distance / 100); // Hitung total tarif
-      this.shippingCost = `Rp ${totalCost.toLocaleString()}`; // Format hasil tarif
+    async calculateShipping() {
+      try {
+        const requestData = {
+          origin: this.origin,
+          destination: this.destination,
+          weight: this.weight,
+          courier: this.courier,
+        };
+
+        const response = await axios.post(
+          "https://kirimkan-be.vercel.app/api/v1/rajaongkir",
+          requestData
+        );
+
+        this.shippingCost = response.data.rajaongkir;
+        console.log(response.data.rajaongkir);
+      } catch (error) {
+        console.error("Error calculating shipping:", error);
+      }
     },
   },
 };

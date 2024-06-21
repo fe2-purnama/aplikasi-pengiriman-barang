@@ -132,7 +132,7 @@ export default {
         );
         const couriersData = response.data.data;
         console.log(response.data.data);
-        this.couriers = []; // Clear the current couriers array
+        this.couriers = [];
 
         for (let i = 0; i < couriersData.length; i++) {
           const courier = couriersData[i];

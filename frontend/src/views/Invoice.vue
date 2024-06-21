@@ -1,57 +1,68 @@
 <template>
-    <div class="invoice-container">
-      <div class="invoice-header">
-        <h1></h1>
-        <div class="d-flex justify-content-end" ref="printButton">
-          <button class="btn btn-primary" @click="printPDF">Print to PDF</button>
-        </div>
-      </div>
-      <div class="invoice" ref="invoice">
-        <div class="invoice-details">
-          <h2>Invoice #{{ sender.shipmentId }}</h2>
-          <h2>{{ typeShipment.type }}</h2>
-          <p>Date: {{ invoiceDate }}</p>
-        </div>
-        <div class="sender">
-          <p>Nama Pengirim : {{ sender.name }}</p>
-          <p>Alamat Pengirim : {{ sender.address }}</p>
-          <p>No Telp Pengirim : {{ sender.phoneNumber }}</p>
-          <p>Nama Penerima : {{ recipient.name }}</p>
-          <p>Alamat Penerima : {{ recipient.address }}</p>
-          <p>No Telp Penerima : {{ recipient.phoneNumber }}</p>
-        </div>
-        <div class="invoice-items">
-          <table>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Weight</th>
-                <th>Height</th>
-                <th>Width</th>
-                <th>Remarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in items" :key="item.id">
-                <td>{{ item.type }}</td>
-                <td>{{ item.itemName }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.weight }}</td>
-                <td>{{ item.height }}</td>
-                <td>{{ item.width }}</td>
-                <td>{{ item.remarks }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="invoice-total">
-          <h3>Total: {{ service.price }}</h3>
-        </div>
+  <div class="invoice-container">
+    <div class="invoice-header">
+      <h1></h1>
+      <div class="d-flex justify-content-end" ref="printButton">
+        <button class="btn btn-primary" @click="printPDF">Print to PDF</button>
       </div>
     </div>
-  </template>
+    <div class="invoice" ref="invoice">
+      <div class="invoice-details">
+        <h2 class="text-center">Invoice #{{ sender.shipmentId }}</h2>
+        <h2 class="text-center">{{ typeShipment.type }}</h2>
+        <p>Tanggal: {{ getFormattedDate(invoiceDate) }}</p>
+      </div>
+      <div class="invoice-content d-flex">
+        <div class="sender-details">
+          <div class="sender">
+            <p>Nama Pengirim : {{ sender.name }}</p>
+            <p>Alamat Pengirim : {{ sender.address }}</p>
+            <p>No Telp Pengirim : {{ sender.phoneNumber }}</p>
+          </div>
+        </div>
+        <div class="recipient-details ml-auto">
+          <div class="recipient">
+            <p>Nama Penerima : {{ recipient.name }}</p>
+            <p>Alamat Penerima : {{ recipient.address }}</p>
+            <p>No Telp Penerima : {{ recipient.phoneNumber }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="invoice-items">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Weight</th>
+              <th>Height</th>
+              <th>Width</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id">
+              <td>{{ item.type }}</td>
+              <td>{{ item.itemName }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.weight }}</td>
+              <td>{{ item.height }}</td>
+              <td>{{ item.width }}</td>
+              <td>{{ item.remarks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="invoice-total">
+        <h3>Total: {{ service.price }}</h3>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <router-link to="/order" class="btn btn-secondary ml-2 mt-1">Cancel</router-link>
+    </div>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';
@@ -131,6 +142,20 @@
             console.error('Error fetching sender details:', error);
           });
       },
+      getFormattedDate(dateString) {
+        const months = [
+          'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+          'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+        const date = new Date(dateString);
+        const dayName = days[date.getDay()];
+        const monthName = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        return `${dayName}, ${date.getDate()} ${monthName} ${year}`;
+      },
     },
     created() {
       // Ambil shipmentId dari URL
@@ -141,10 +166,11 @@
   
   <style scoped>
   .invoice-container {
+    margin-top: 100px;
     padding: 20px;
     font-family: Arial, sans-serif;
     margin-top: 100px;
-    text-align: left; /* Ensuring left alignment */
+    text-align: left;
   }
   
   .invoice-header {

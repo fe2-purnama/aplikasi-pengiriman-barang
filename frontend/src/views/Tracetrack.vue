@@ -96,8 +96,9 @@ export default {
 <style scoped>
 .container {
   /* margin-top: 200px; */
+  /* margin-top: 500px; */
   max-width: 850px;
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 20px;
   background-color: #f7f7f7;
   border: 1px solid #ddd;

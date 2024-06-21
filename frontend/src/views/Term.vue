@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- Button to trigger the modal -->
-    <button @click="showModal = true" class="btn btn-primary">Buka Modal Syarat dan Ketentuan</button>
+    <!-- <button @click="showModal = true" class="btn btn-primary">Buka Modal Syarat dan Ketentuan</button> -->
 
     <!-- Modal component -->
     <b-modal v-model="showModal" title="Syarat dan Ketentuan">

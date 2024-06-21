@@ -1,26 +1,30 @@
 <template>
   <div class="container">
-    <h1 class="mt-4">Registrasi Pengguna</h1>
-    <form @submit.prevent="register" class="needs-validation" novalidate>
-      <div class="form-group mb-3">
-        <label for="fullName" class="form-label">Nama Lengkap:</label>
-        <input type="text" id="fullName" v-model="fullName" class="form-control" required>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h1 class="card-title">Registrasi</h1>
+        <form @submit.prevent="register" class="needs-validation" novalidate>
+          <div class="form-group mb-3">
+            <label for="fullName" class="form-label">Nama Lengkap:</label>
+            <input type="text" id="fullName" v-model="fullName" class="form-control" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" v-model="email" class="form-control" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="phoneNumber" class="form-label">Nomor Telepon:</label>
+            <input type="text" id="phoneNumber" v-model="phoneNumber" class="form-control" required>
+          </div>
+          <div class="form-group mb-4">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" id="password" v-model="password" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Daftar</button>
+        </form>
+        <p v-if="message" :class="['alert mt-4', success ? 'alert-success' : 'alert-danger']">{{ message }}</p>
       </div>
-      <div class="form-group mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" id="email" v-model="email" class="form-control" required>
-      </div>
-      <div class="form-group mb-3">
-        <label for="phoneNumber" class="form-label">Nomor Telepon:</label>
-        <input type="text" id="phoneNumber" v-model="phoneNumber" class="form-control" required>
-      </div>
-      <div class="form-group mb-4">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" id="password" v-model="password" class="form-control" required>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Daftar</button>
-    </form>
-    <p v-if="message" :class="['alert mt-4', success ? 'alert-success' : 'alert-danger']">{{ message }}</p>
+    </div>
   </div>
 </template>
 
@@ -70,6 +74,7 @@ export default {
   margin: 0 auto;
   padding: 20px;
   margin-bottom: 80px;
+  margin-top: 100px;
 }
 h1 {
   margin-bottom: 20px;
@@ -88,5 +93,13 @@ h1 {
 .alert-danger {
   background-color: lightcoral;
   color: #721c24;
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
 }
 </style>

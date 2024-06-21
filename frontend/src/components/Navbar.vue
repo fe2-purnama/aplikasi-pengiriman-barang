@@ -181,6 +181,12 @@ nav {
   width: 100%;
   z-index: 1000;
   background-color: #DE9727 !important;
+  display: flex; 
+  align-items: center; 
+}
+
+.navbar-brand {
+  margin-right: auto; 
 }
 
 .navbar-brand,
@@ -210,14 +216,14 @@ nav {
 }
 
 .logo {
-  height: 185px; 
+  height: 100px; 
   margin: 0; 
   padding: 0; 
 }
 
 @media (max-width: 768px) {
   .navbar-collapse {
-    background-color: #ffa500 !important; /* Warna oranye untuk mode mobile */
+    background-color: #ffa500 !important; 
   }
 }
 </style>
